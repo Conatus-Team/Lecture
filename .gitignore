@@ -44,3 +44,6 @@ secrets.yml
 node_modules
 .dist/
 .pem
+
+# DB 정보 숨기기
+application.yml
