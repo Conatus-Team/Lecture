@@ -1,19 +1,15 @@
-package moine.domain;
+package moine.domain.entity;
 
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity(name="lecture_crawling")
-public class LectureCrawlingEntity extends BaseTimeEntity{
+public class LectureCrawlingEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

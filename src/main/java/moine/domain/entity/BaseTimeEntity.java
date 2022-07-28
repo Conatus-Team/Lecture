@@ -1,4 +1,4 @@
-package moine.domain;
+package moine.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

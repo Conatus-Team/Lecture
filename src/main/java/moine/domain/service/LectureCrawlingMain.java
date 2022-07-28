@@ -1,14 +1,22 @@
-package moine.domain;
+package moine.domain.service;
 
+import moine.domain.dto.LectureCrawlingVO;
+import moine.domain.entity.LectureCrawlingEntity;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class LectureCrawlingMain {
+//    @Autowired
+//    private moine.domain.repository.LectureCrawlingRepository LectureCrawlingRepository;
+
     public static void getLectureCrawlingList() {
 
         // 타겟 url
@@ -16,13 +24,17 @@ public class LectureCrawlingMain {
         final String originURL = "https://www.dongacc.com/online/category.htm?ca_code=11";
         Connection conn = Jsoup.connect(originURL);
 
+//        String[][] Data;
+//        Map<String, String[]> Data= new HashMap<>();
+
+
         try {
             Document document = conn.get();
             String thead = getTableHeader(document); // 칼럼명
             String tbody = getTableBody(document);   // 데이터 리스트
 
             System.out.println(thead);
-            System.out.println(tbody);
+//            System.out.println(tbody);
 
         } catch (IOException ignored) {
         }
@@ -50,25 +62,33 @@ public class LectureCrawlingMain {
         String category = "";
         String course_url="";
 
+        // tr
         for (Element element : stockTableBody) {
-//      if (element.attr("onmouseover").isEmpty()) {
-//        continue;
-//      }
 
+            // tr을 하나씩 저장
+            ArrayList data = new ArrayList<String>();
+
+            // 크롤링 객체 생성
+//            LectureCrawlingEntity lecture = new LectureCrawlingEntity();
+
+            // td
             for (Element td : element.select("td")) {
-                //
+
+                // rowspan 속성이 존재하면 분류 가져오기
                 if(!(td.attr("rowspan").isEmpty())){
-                    category = td.text(); // rowspan 속성이 존재하면 분류 가져오기
+                    category = td.text();
                     sb.append(category);
+                    continue;
                 }
 
-                String text="";
 
+                String text="";
                 if(td.select("a").attr("href").isEmpty()){
+                    // td의 글씨
                     text = td.text();
                 }else if(td.select("a").attr("href") != "#"){
                     if(course_url.isEmpty()){
-                        // url : 과정명, 자세히 둘다 가지고 있음
+                        // 과정명에 있는 url 가져오기
                         text = td.text();
                         course_url = "https://www.dongacc.com/online/"+td.select("a").attr("href");
 
@@ -76,13 +96,37 @@ public class LectureCrawlingMain {
 
                 }
 
-                sb.append(text);
+                // sb.append(text);
+                data.add(text);
 
-                sb.append("   ");
+                // sb.append("   ");
             }
-            sb.append(course_url);
+            // sb.append(course_url);
+            data.add(course_url);
+            data.add(category);
+
             course_url = "";
-            sb.append(System.getProperty("line.separator")); //줄바꿈
+            //sb.append(System.getProperty("line.separator")); //줄바꿈
+
+            System.out.println("data = " + data);
+
+            // [0:과정명, 1:모바일, 2:강사, 3:수강기간, 4:수강료, 5:추천, 6:'', 7:'', 8:url, 9:분류]
+            System.out.println("data = " + data.get(9)); // 분류
+            System.out.println("data = " + data.get(0)); // 강의명
+            System.out.println("data = " + data.get(2)); // 강사명
+            System.out.println("data = " + data.get(8)); // url
+            System.out.println("data = " + data.get(5)); // 좋아요수
+//            System.out.println("data = " + data.get(4)); // 가격
+
+            // DB 저장
+//            lecture.setLecture_name((String) data.get(9));
+//            lecture.setLecture_name((String) data.get(0));
+//            lecture.setLecture_name((String) data.get(2));
+//            lecture.setLecture_name((String) data.get(8));
+//            lecture.setLecture_name((String) data.get(5));
+
+//            LectureCrawlingRepository.save(lecture);
+
         }
         return sb.toString();
     }

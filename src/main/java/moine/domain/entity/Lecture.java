@@ -1,13 +1,11 @@
-package moine.domain;
+package moine.domain.entity;
 
-import moine.domain.LectureLiked;
-import moine.domain.LectureSearched;
-import moine.domain.LectureDetailShown;
-import moine.domain.RecommendedLectureUpdated;
 import moine.LectureApplication;
 import javax.persistence.*;
+
+import moine.domain.event.*;
+import moine.domain.repository.LectureRepository;
 import org.springframework.beans.BeanUtils;
-import java.util.List;
 
 
 @Entity

@@ -14,14 +14,11 @@
 //}
 package moine.main;
 
-import java.time.LocalDateTime;
-
-import moine.domain.LectureTestEntity;
-import moine.domain.LectureTestRepository;
+import moine.domain.entity.LectureTestEntity;
+import moine.domain.repository.LectureTestRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 //@EnableJpaAuditing
 @SpringBootTest

@@ -16,11 +16,10 @@ package moine.main;
 
 import java.time.LocalDateTime;
 
-import moine.domain.*;
+import moine.domain.entity.LectureCrawlingEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 //@EnableJpaAuditing
 @SpringBootTest
@@ -29,7 +28,7 @@ class LectureCrawlingTest {
 
 
     @Autowired
-    private LectureCrawlingRepository LectureCrawlingRepository;
+    private moine.domain.repository.LectureCrawlingRepository LectureCrawlingRepository;
 
     @Test
     void testJpa() {

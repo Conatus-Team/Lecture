@@ -1,4 +1,4 @@
-package moine.domain;
+package moine.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;

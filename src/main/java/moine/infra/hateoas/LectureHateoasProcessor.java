@@ -1,7 +1,6 @@
-package moine.infra;
-import moine.domain.*;
+package moine.infra.hateoas;
 
-import org.springframework.hateoas.Link;
+import moine.domain.entity.Lecture;
 import org.springframework.hateoas.server.RepresentationModelProcessor;
 import org.springframework.stereotype.Component;
 import org.springframework.hateoas.EntityModel;
