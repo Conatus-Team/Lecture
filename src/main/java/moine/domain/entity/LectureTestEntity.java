@@ -1,4 +1,4 @@
-package moine.domain;
+package moine.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +21,9 @@ public class LectureTestEntity {
 
     @Column(nullable = false, length = 100)
     private String category;
+
+    @Column(nullable = true)
+    private long price;
 
 
 }

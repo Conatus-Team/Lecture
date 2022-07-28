@@ -14,17 +14,17 @@
 //}
 package moine.main;
 
-import java.time.LocalDateTime;
-
-import moine.domain.LectureTestEntity;
-import moine.domain.LectureTestRepository;
+import moine.domain.entity.LectureTestEntity;
+import moine.domain.repository.LectureTestRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
+//@EnableJpaAuditing
 @SpringBootTest
 class TestMain {
+
+
 
     @Autowired
     private LectureTestRepository lectureTestRepository;
@@ -34,6 +34,7 @@ class TestMain {
         LectureTestEntity lecture1 = new LectureTestEntity();
         lecture1.setLecturename("안녕");
         lecture1.setCategory("life");
+        lecture1.setPrice(15000);
 //        lecture1.setCreateDate(LocalDateTime.now());
         this.lectureTestRepository.save(lecture1);  // 첫번째 강의 저장
 

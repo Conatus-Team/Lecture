@@ -1,6 +1,6 @@
-package moine.domain;
+package moine.domain.repository;
 
-import moine.domain.*;
+import moine.domain.entity.Lecture;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

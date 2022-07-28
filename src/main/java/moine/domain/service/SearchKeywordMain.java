@@ -1,4 +1,4 @@
-package moine.domain;
+package moine.domain.service;
 
 public class SearchKeywordMain {
 
