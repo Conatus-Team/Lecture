@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/lecture")
+//@RequestMapping(value="/lecture")
 @RequiredArgsConstructor
-//@RequestMapping(value="/lecturelist")
+@RequestMapping(value="/lecturelist")
 public class LectureController {
     @Autowired
     private LectureCrawlingRepository lectureCrawlingRepository;
@@ -25,7 +25,8 @@ public class LectureController {
     // 크롤링 서비스
     private final CrawlingService crawlingService;
 
-    @GetMapping("/all")
+//    @GetMapping("/all")
+    @GetMapping("")
     public List<LectureCrawlingVO> getLectureCrawlingList(HttpServletRequest request) {
 
         // 크롤링 데이터 불러오기
