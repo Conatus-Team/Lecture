@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LectureTestRepository extends JpaRepository<LectureTestEntity, Long> {
+    LectureTestEntity findByLecturename(String lecture_name);
+    LectureTestEntity findByCategory(String category);
+
 }
