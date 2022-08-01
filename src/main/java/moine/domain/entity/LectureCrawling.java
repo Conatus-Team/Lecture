@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Clob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,10 +49,12 @@ public class LectureCrawling extends BaseTimeEntity {
 
     // 수강료
     @Column(nullable = true)
-    private long price;
+    private String price;
+//    private Integer price;
+
 
     // 강의 소개
-    @Column(nullable = true, length = 100)
+    @Column(columnDefinition = "TEXT", nullable = true)
     private String introduction;
 
     // 강의 양
@@ -59,7 +62,7 @@ public class LectureCrawling extends BaseTimeEntity {
     private String amount;
 
     // 커리큘럼
-    @Column(nullable = true, length = 100)
+    @Column(columnDefinition = "TEXT", nullable = true)
     private String curriculum;
 
     // 취미분야
@@ -68,11 +71,11 @@ public class LectureCrawling extends BaseTimeEntity {
 
     // 원본 사이트에서 좋아요수
     @Column(name="origin_like_count", nullable = true)
-    private long originLikeCount;
+    private Integer originLikeCount = 0;
 
     // 모이네 유저 좋아요수
     @Column(name="user_like_count", nullable = true)
-    private long userLikeCount;
+    private Integer userLikeCount = 0;
 
 //    @OneToMany(mappedBy = "lectureCrawling")
 //    private List<LectureLike> lectureLikes = new ArrayList<>();

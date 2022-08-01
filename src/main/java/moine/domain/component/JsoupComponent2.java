@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JsoupComponent {
+public class JsoupComponent2 {
 
     final String site_name = "라임 사이버 문화센터";
 
@@ -46,9 +46,6 @@ public class JsoupComponent {
         List<LectureCrawlingVO> list = new ArrayList<>();
         String category = "";
         String course_url="";
-        String introduction = "";
-        String curriculum = "";
-        String image_path = "";
 
         // tr
         for (Element element : lectureTable) {
@@ -87,39 +84,6 @@ public class JsoupComponent {
             }
             data.add(course_url);
             data.add(category);
-
-            // 강의 자세히보기
-            Connection conn2 = Jsoup.connect(course_url);
-            try {
-                Document document2 = conn2.get();
-                Elements elements = document2.select("div.mt20").next();
-
-                // elements = [0:무의미한 값, 1: 강의소개, 2: 강의목차, 3: 강의추천, 4:강의평가]
-                // 강의소개
-                introduction = elements.get(1).toString();
-//                System.out.println(elements.get(1));
-
-
-                // 이미지 경로
-                if (!elements.get(1).select("img[src]").isEmpty()) {
-//                    System.out.println("https://www.dongacc.com/" + elements.get(1).select("img").attr("src"));
-                    image_path = "https://www.dongacc.com/" + elements.get(1).select("img").attr("src");
-                }
-
-
-                // 강의 커리큘럼
-                curriculum = elements.get(2).toString();
-//                System.out.println(elements.get(2));
-
-
-
-            }catch (IOException ignored) {
-
-            }
-            data.add(image_path);
-            data.add(introduction);
-            data.add(curriculum);
-//            System.out.println("data = " + data);
             course_url = "";
 
             // vo에 저장
@@ -127,36 +91,25 @@ public class JsoupComponent {
                 fields[i].setAccessible(true);
             }
             try {
-                // data = [0:과정명, 1:모바일, 2:강사, 3:수강기간, 4:수강료, 5:추천, 6:'', 7:'', 8:url, 9:분류, 10: 이미지경로, 11:강의소개, 12: 커리큘럼]
-                // fields = [0:취미분야, 1:강의명, 2:강사명, 3:url, 4:원본사이트좋아요, 5:사이트명, 6:이미지경로, 7: 강의소개, 8: 커리큘럼]
+                // data = [0:과정명, 1:모바일, 2:강사, 3:수강기간, 4:수강료, 5:추천, 6:'', 7:'', 8:url, 9:분류]
+                // fields = [0:취미분야, 1:강의명, 2:강사명, 3:url, 4:원본사이트좋아요]
                 fields[0].set(lectureCrawlingVO, data.get(9)); // 분류
                 fields[1].set(lectureCrawlingVO, data.get(0)); // 과정명
                 fields[2].set(lectureCrawlingVO, data.get(2)); // 강사
                 fields[3].set(lectureCrawlingVO, data.get(8)); // url
                 fields[4].set(lectureCrawlingVO, Integer.parseInt((String) data.get(5))); // 추천
                 fields[5].set(lectureCrawlingVO, site_name); // 사이트명
-                fields[6].set(lectureCrawlingVO, data.get(10)); // 이미지경로
-                fields[7].set(lectureCrawlingVO, data.get(11)); // 강의소개
-                fields[8].set(lectureCrawlingVO, data.get(12)); // 커리큘럼
-                fields[9].set(lectureCrawlingVO, data.get(4)); // 수강료
-                fields[10].set(lectureCrawlingVO, data.get(3)); // 강의시간
-
 
             }
             catch (Exception ignored){
 
             }
 
-           
             list.add(lectureCrawlingVO);
 
         }
-
-
         return list;
     }
-
-
 
 
 }
