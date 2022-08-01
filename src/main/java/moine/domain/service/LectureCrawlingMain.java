@@ -27,11 +27,17 @@ public class LectureCrawlingMain {
 
         try {
             Document document = conn.get();
-            String thead = getTableHeader(document); // 칼럼명
-            String tbody = getTableBody(document);   // 데이터 리스트
+//            String thead = getTableHeader(document); // 칼럼명
+//            String tbody = getTableBody(document);   // 데이터 리스트
 
-            System.out.println(thead);
+
+//            getDetail("https://www.dongacc.com/online/course/view.htm?mgt_no=1071"); // 강의 자세히 보기 - 강의 소개
+            getDetail("https://www.dongacc.com/online/course/view.htm?mgt_no=3780"); // 강의 자세히 보기 - 강의 소개
+
+
+//            System.out.println(thead);
 //            System.out.println(tbody);
+
 
         } catch (IOException ignored) {
         }
@@ -127,6 +133,69 @@ public class LectureCrawlingMain {
         }
         return sb.toString();
     }
+
+
+
+    public static void getDetail(String detailUrl) {
+        Connection conn = Jsoup.connect(detailUrl);
+
+        try {
+            Document document = conn.get();
+            System.out.println("connect 성공");
+
+//            Elements tabs = document.select("div.tab01.full ")\;
+//            for (Element tab:
+//                 tabs) {
+//                System.out.println("tab = " + tab);
+//
+//            }
+
+//            Elements elements = document.select("div[style]");
+//            System.out.println("tab = " + elements);
+
+            Elements elements = document.select("div.mt20").next();
+            System.out.println("elements.size() = " + elements.size());
+            // 0:무의미함, 1: 강의소개, 2: 강의목차, 3: 강의추천, 4:강의평가
+
+            // 강의소개
+            System.out.println("강의소개");
+            String test = elements.get(1).toString();
+            System.out.println(test);
+            System.out.println();
+
+            // 이미지 경로
+            System.out.println("이미지 경로");
+            if (!elements.get(1).select("img[src]").isEmpty()) {
+                System.out.println("https://www.dongacc.com/" + elements.get(1).select("img").attr("src"));
+            }
+            System.out.println();
+
+
+            // 강의 커리큘럼
+            System.out.println("강의 커리큘럼");
+            System.out.println(elements.get(2));
+            System.out.println();
+
+//            // 전체 탭
+//            for (Element element:
+//                 elements) {
+//                System.out.println("element = " + element);
+//
+//                // img 저장
+//                if (!element.select("img[src]").isEmpty()) {
+//                    System.out.println("https://www.dongacc.com/" + element.select("img").attr("src"));
+//                }
+//
+//            }
+
+        }catch (IOException ignored) {
+
+        }
+
+
+
+    }
+
 
     public static void main(String[] args) {
         getLectureCrawlingList();

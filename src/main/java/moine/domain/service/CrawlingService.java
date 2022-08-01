@@ -42,13 +42,17 @@ public class CrawlingService {
         // DB 저장
         for (LectureCrawlingVO data : list){
             LectureCrawling lecture = new LectureCrawling();
-            lecture.setCategoryName(data.getCategoryName()); // 분류
+            lecture.setCategoryName(data.getCategoryName()); // 취미분야
             lecture.setLectureName(data.getLectureName()); // 강의명
             lecture.setTeacherName(data.getTeacherName()); // 강사명
-            lecture.setLectureUrl(data.getLectureUrl()); // url
-            lecture.setOriginLikeCount(data.getOriginLikeCount()); //추천수
+            lecture.setLectureUrl(data.getLectureUrl()); // 강의 링크
+            lecture.setOriginLikeCount(data.getOriginLikeCount()); //원본 사이트에서 좋아요수
             lecture.setSiteName(data.getSiteName()); // 사이트명
-
+            lecture.setImagePath(data.getImagePath()); // 이미지 경로
+            lecture.setIntroduction(data.getIntroduction()); // 강의 소개
+            lecture.setCurriculum(data.getCurriculum()); // 커리큘럼
+            lecture.setPrice(data.getPrice()); // 수강료
+            lecture.setAmount(data.getAmount()); // 강의시간
 
             this.lectureCrawlingRepository.save(lecture);  // 첫번째 강의 저장
         }
