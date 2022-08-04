@@ -32,7 +32,6 @@ import static org.junit.Assert.assertEquals;
 class TestMain {
 
 
-
     // 크롤링
     @Autowired
     private LectureTestRepository lectureTestRepository;

@@ -7,6 +7,8 @@ import moine.domain.repository.LectureLikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LikeService {
@@ -16,19 +18,49 @@ public class LikeService {
     private final CrawlingService crawlingService;
     private final UserService userService;
 
-    // lecture_like 디비에 어떤 userid가 어떤 강의를 찜했는지 저장
-    public LectureLike saveLike(Long lectureId, Long userId) {
+    // 찜한 목록에 없으면 추가, 있으면 삭제
+    public LectureLike likeResult(Long lectureId, Long userId) {
+        // DB에 있는지 검사
+        List<LectureLike> lectureLike =
+                lectureLikeRepository.findByLectureCrawlingAndUser(
+                        crawlingService.getLectureById(lectureId),
+                        userService.getUser(userId)
+                );
 
-        LectureLike lecture_liked = new LectureLike();
 
-        LectureCrawling lecture = crawlingService.getLectureById(lectureId);
-        lecture_liked.setLectureCrawling(lecture);
-        lecture_liked.setCategoryName(lecture.getCategoryName());
-        lecture_liked.setUser(userService.getUser(userId));
 
-        this.lectureLikeRepository.save(lecture_liked);  // 첫번째 강의 저장
+        if(lectureLike.isEmpty()){
+            // 없으면 새로 추가
+            // DB 저장
+            LectureLike newLectureLike = new LectureLike();
 
-        return lecture_liked;
+            LectureCrawling lecture = crawlingService.getLectureById(lectureId);
+            newLectureLike.setLectureCrawling(lecture);
+            newLectureLike.setCategoryName(lecture.getCategoryName());
+            newLectureLike.setUser(userService.getUser(userId));
+
+            this.lectureLikeRepository.save(newLectureLike);
+
+            // lecture_crawling의 user_like_count 증가
+            crawlingService.increaseUserLikeCount(lecture);
+
+            
+            return newLectureLike;
+        }
+        else{
+            // 있으면 삭제
+            lectureLikeRepository.delete(lectureLike.get(0));
+
+            // lecture_crawling 테이블에서 user_like_count 감소
+            LectureCrawling lecture = crawlingService.getLectureById(lectureId);
+            crawlingService.decreaseUserLikeCount(lecture);
+
+            return lectureLike.get(0);
+
+
+        }
 
     }
+
+
 }

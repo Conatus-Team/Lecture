@@ -66,4 +66,22 @@ public class CrawlingService {
         return lecture;
     }
 
+    // user_like_count 증가
+    public void increaseUserLikeCount(LectureCrawling lecture){
+        int count = lecture.getUserLikeCount()+1;
+        lecture.setUserLikeCount(count);
+
+        lectureCrawlingRepository.save(lecture);
+    }
+
+    // user_like_count 감소
+    public void decreaseUserLikeCount(LectureCrawling lecture) {
+        int count=0;
+        if(lecture.getUserLikeCount() > 0) {
+            count = lecture.getUserLikeCount()-1;
+        }
+        lecture.setUserLikeCount(count);
+        lectureCrawlingRepository.save(lecture);
+    }
+
 }
