@@ -1,17 +1,12 @@
 package moine.infra.controller;
 
 import lombok.RequiredArgsConstructor;
-import moine.domain.dto.LectureCrawlingVO;
-import moine.domain.dto.LikeDto;
-import moine.domain.dto.SearchDto;
-import moine.domain.dto.SignUpDto;
+import moine.domain.dto.*;
 import moine.domain.entity.LectureCrawling;
+import moine.domain.entity.LectureDetailShow;
 import moine.domain.entity.LectureLike;
 import moine.domain.entity.User;
-import moine.domain.service.CrawlingService;
-import moine.domain.service.LikeService;
-import moine.domain.service.SearchService;
-import moine.domain.service.UserService;
+import moine.domain.service.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +22,7 @@ public class LectureController {
     private final SearchService searchService;
     private final UserService userService;
     private final LikeService likeService;
+    private final DetailShowService detailShowService;
 
     // 관리자
     // 크롤링 실행 및 DB 저장
@@ -60,6 +56,22 @@ public class LectureController {
     }
 
     // 사용자
+    // 특정 강의 보기
+    @PostMapping("/{id}")
+    public LectureDetailShow getLectureItem(@PathVariable Long id, @RequestBody UserIdDto userIdDto){
+        // id에 해당하는 강의
+//        LectureCrawling lectureItem = crawlingService.getLectureById(id);
+
+        // lecture_detail_show 에 클릭한 강의, 유저를 저장하고 클릭 횟수 증가
+        LectureDetailShow lectureDetailShow = detailShowService.saveLectureDetailShow(id, userIdDto.getUserId());
+
+        return lectureDetailShow;
+
+    }
+
+
+
+    // 사용자
     // 강의 검색하기
     @PostMapping("/search")
     public List<LectureCrawling> postLectureSearchResult(@RequestBody SearchDto searchDto) {
@@ -82,7 +94,7 @@ public class LectureController {
         Long lectureId = likeDto.getLectureId();
         Long userId = likeDto.getUserId();
 
-        LectureLike lecture = likeService.saveLike(lectureId, userId);
+        LectureLike lecture = likeService.likeResult(lectureId, userId);
 
         return lecture;
 

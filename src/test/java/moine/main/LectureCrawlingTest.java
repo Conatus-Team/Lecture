@@ -17,6 +17,10 @@ package moine.main;
 import java.time.LocalDateTime;
 
 import moine.domain.entity.LectureCrawling;
+import moine.domain.entity.LectureDetailShow;
+import moine.domain.repository.LectureDetailShowRepository;
+import moine.domain.service.CrawlingService;
+import moine.domain.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +33,18 @@ class LectureCrawlingTest {
 
     @Autowired
     private moine.domain.repository.LectureCrawlingRepository LectureCrawlingRepository;
+
+    @Autowired
+    private LectureDetailShowRepository lectureDetailShowRepository;
+
+
+    @Test
+    void testDetailShow() {
+
+//        LectureDetailShow lecture = new LectureDetailShow();
+//        lecture.setLectureCrawling(LectureCrawlingRepository.findById(Long.valueOf(1)).get());
+        System.out.println(LectureCrawlingRepository.findById(Long.valueOf(1)).get());
+    }
 
     @Test
     void testJpa() {
