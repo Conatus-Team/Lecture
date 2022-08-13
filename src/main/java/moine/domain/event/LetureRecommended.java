@@ -10,6 +10,10 @@ public class LetureRecommended extends AbstractEvent {
     private Long userId;
     private Long lectureId;
 
+//    public LetureRecommended() {
+//        super(detailShowList);
+//    }
+
 //    public Long getId() {
 //        return id;
 //    }

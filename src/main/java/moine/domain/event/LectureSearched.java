@@ -10,6 +10,10 @@ public class LectureSearched extends AbstractEvent {
     private Long userId;
     private String keyword;
 
+//    public LectureSearched() {
+//        super(detailShowList);
+//    }
+
 //    public LectureSearched(){
 //        super();
 //    }

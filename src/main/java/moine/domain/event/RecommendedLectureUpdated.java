@@ -8,6 +8,10 @@ public class RecommendedLectureUpdated extends AbstractEvent {
 
     private Long id;
 
+//    public RecommendedLectureUpdated() {
+//        super(detailShowList);
+//    }
+
 //    public RecommendedLectureUpdated(){
 //        super();
 //    }

@@ -10,12 +10,12 @@ import moine.domain.service.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-//@RequestMapping(value="/lecture")
 @RequiredArgsConstructor
-@RequestMapping(value="/lecturelist")
+@RequestMapping(value="/lecture")
 public class LectureController {
 
     private final CrawlingService crawlingService;
@@ -28,6 +28,10 @@ public class LectureController {
     // 크롤링 실행 및 DB 저장
     @GetMapping("/crawlingSave")
     public List<LectureCrawlingVO> LectureCrawlingListSave(HttpServletRequest request){
+        // lecture 전체 삭제 (중복 데이터 누적방지)
+        crawlingService.deleteAllLectureCrawlingList();
+
+        // 다시 크롤링 후 저장
         List<LectureCrawlingVO> list = crawlingService.saveLectureCrawlingList();
         return list;
 
@@ -35,25 +39,54 @@ public class LectureController {
 
     // 사용자
     // 회원가입
-    @PostMapping("/signUp")
-    public User postUser(@RequestBody SignUpDto signUpDto) {
-        System.out.println("signUpDto = " + signUpDto);
-        User newUser = userService.postUser(signUpDto.getUserName(), signUpDto.getUserNickname());
+//    @PostMapping("/signUp")
+//    public User postUser(@RequestBody SignUpDto signUpDto) {
+//        System.out.println("signUpDto = " + signUpDto);
+//        User newUser = userService.postUser(signUpDto.getUserId(), signUpDto.getUserName(), signUpDto.getUserNickname());
+//
+//        return newUser;
+//    }
 
-        return newUser;
+    // 관리자
+    // 사용자 모두 삭제
+    @DeleteMapping("")
+    public String deleteAllUser(HttpServletRequest request) {
+        return userService.deleteUser();
     }
 
+
     // 사용자
-    // 모든 강의 보기
+    // 모든 강의 보기 - 로그인 이전
     @GetMapping("")
     public List<LectureCrawling> getLectureCrawlingList(HttpServletRequest request) {
 
         // 크롤링 데이터 불러오기
         List<LectureCrawling> list = crawlingService.getLectureCrawlingList();
 
+
+
         return list;
 
     }
+
+    // 사용자
+    // 모든 강의 보기 - 로그인 이후
+    @PostMapping("")
+    public LectureAllDto postLectureCrawlingList(@RequestBody UserIdDto userIdDto) {
+
+        // 크롤링 데이터 불러오기
+        List<LectureCrawling> list = crawlingService.getLectureCrawlingList();
+        List<Long> id_list = likeService.likeList(userIdDto.getUserId());
+
+        LectureAllDto result = new LectureAllDto();
+        result.setData(list);
+        result.setLikeId(id_list);
+
+
+        return result;
+
+    }
+
 
     // 사용자
     // 특정 강의 보기
@@ -88,16 +121,32 @@ public class LectureController {
         return results;
     }
 
-    // 강의 찜하기
+    // 강의 찜하기 추가
     @PostMapping("/like")
     public LectureLike postLectureLike(@RequestBody LikeDto likeDto) {
         Long lectureId = likeDto.getLectureId();
         Long userId = likeDto.getUserId();
 
-        LectureLike lecture = likeService.likeResult(lectureId, userId);
+        LectureLike lecture = likeService.postLike(lectureId, userId);
 
         return lecture;
 
     }
+
+    // 강의 찜하기 해제
+    @DeleteMapping("/like")
+    public LectureLike deleteLectureLike(@RequestBody LikeDto likeDto) {
+        Long lectureId = likeDto.getLectureId();
+        Long userId = likeDto.getUserId();
+
+        LectureLike lecture = likeService.deleteLike(lectureId, userId);
+
+        return lecture;
+
+    }
+
+
+
+
 
 }

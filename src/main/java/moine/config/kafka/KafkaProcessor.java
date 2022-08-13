@@ -7,8 +7,10 @@ import org.springframework.messaging.SubscribableChannel;
 
 public interface KafkaProcessor {
 
-    String INPUT = "event-in";
-    String OUTPUT = "event-out";
+
+    String INPUT = "signedUpTopic";
+    String OUTPUT = "detailShowedTopic";
+    String OUTPUT2 = "likedTopic";
 
     @Input(INPUT)
     SubscribableChannel inboundTopic();

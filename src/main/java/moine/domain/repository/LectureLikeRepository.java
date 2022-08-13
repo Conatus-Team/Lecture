@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface LectureLikeRepository extends JpaRepository<LectureLike, Long> {
     List<LectureLike> findByLectureCrawlingAndUser (LectureCrawling lectureCrawling, User user);
+    List<LectureLike> findByUser(User user);
+
 }

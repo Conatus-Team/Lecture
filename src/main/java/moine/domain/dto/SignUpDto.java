@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SignUpDto {
-
+    private long userId;
+    private String email;
+    private String password;
     private String userName;
     private String userNickname;
 }

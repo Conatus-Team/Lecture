@@ -32,6 +32,11 @@ public class CrawlingService {
 
     }
 
+    // DB의 데이터 전체 삭제
+    public void deleteAllLectureCrawlingList() {
+        lectureCrawlingRepository.deleteAll();
+
+    }
 
     // DB 저장
     public List<LectureCrawlingVO> saveLectureCrawlingList(){
