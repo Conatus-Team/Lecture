@@ -5,8 +5,10 @@ import moine.domain.dto.*;
 import moine.domain.entity.LectureCrawling;
 import moine.domain.entity.LectureDetailShow;
 import moine.domain.entity.LectureLike;
+import moine.domain.entity.LectureSearch;
 import moine.domain.event.LectureDetailShown;
 import moine.domain.event.LectureLiked;
+import moine.domain.event.LectureSearched;
 import moine.domain.service.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +55,9 @@ public class LectureController {
         likedMessage.publish();
 
         // 키워드
+        List<LectureSearch> searchList = searchService.getAllLectureSearch();
+        LectureSearched searchedMessage = new LectureSearched(searchList);
+        searchedMessage.publish();
 
         return "전송 완료";
     }

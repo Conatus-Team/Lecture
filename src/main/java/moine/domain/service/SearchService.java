@@ -2,6 +2,7 @@ package moine.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import moine.domain.entity.LectureCrawling;
+import moine.domain.entity.LectureDetailShow;
 import moine.domain.entity.LectureSearch;
 import moine.domain.entity.User;
 import moine.domain.repository.LectureCrawlingRepository;
@@ -48,5 +49,12 @@ public class SearchService {
 
         return search;
     }
+
+    // 모두 가져오기
+    public List<LectureSearch> getAllLectureSearch(){
+        List<LectureSearch> lectureSearchList = lectureSearchRepository.findAll();
+        return lectureSearchList;
+    }
+
 
 }
