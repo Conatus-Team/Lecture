@@ -5,15 +5,12 @@ import moine.domain.dto.*;
 import moine.domain.entity.LectureCrawling;
 import moine.domain.entity.LectureDetailShow;
 import moine.domain.entity.LectureLike;
-import moine.domain.entity.User;
 import moine.domain.event.LectureDetailShown;
+import moine.domain.event.LectureLiked;
 import moine.domain.service.*;
-import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -51,7 +48,9 @@ public class LectureController {
         detailShownMessage.publish();
 
         // 찜하기
-
+        List<LectureLike> likeList = likeService.getAllLikeList();
+        LectureLiked likedMessage = new LectureLiked(likeList);
+        likedMessage.publish();
 
         // 키워드
 
@@ -130,7 +129,7 @@ public class LectureController {
     // 사용자
     // 강의 검색하기
     @PostMapping("/search")
-    public List<LectureCrawling> postLectureSearchResult(@RequestBody SearchDto searchDto) {
+    public List<LectureCrawling> postLectureSearchResult(@RequestBody LectureSearchDto searchDto) {
         String keyword = searchDto.getKeyword();
         Long userId = searchDto.getUserId();
 
@@ -146,7 +145,7 @@ public class LectureController {
 
     // 강의 찜하기 추가
     @PostMapping("/like")
-    public LectureLike postLectureLike(@RequestBody LikeDto likeDto) {
+    public LectureLike postLectureLike(@RequestBody LectureLikeDto likeDto) {
         Long lectureId = likeDto.getLectureId();
         Long userId = likeDto.getUserId();
 
@@ -158,7 +157,7 @@ public class LectureController {
 
     // 강의 찜하기 해제
     @DeleteMapping("/like")
-    public LectureLike deleteLectureLike(@RequestBody LikeDto likeDto) {
+    public LectureLike deleteLectureLike(@RequestBody LectureLikeDto likeDto) {
         Long lectureId = likeDto.getLectureId();
         Long userId = likeDto.getUserId();
 

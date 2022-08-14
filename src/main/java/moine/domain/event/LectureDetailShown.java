@@ -1,10 +1,8 @@
 package moine.domain.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import moine.domain.dto.DetailShowDto;
+import moine.domain.dto.history.DetailShowDto;
 import moine.domain.entity.LectureDetailShow;
 import moine.infra.AbstractEvent;
 

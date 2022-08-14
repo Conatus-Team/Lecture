@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SearchDto {
+public class LectureSearchDto {
     private String keyword;
     private long userId;
 }

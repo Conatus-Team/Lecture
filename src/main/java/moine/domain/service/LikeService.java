@@ -96,8 +96,8 @@ public class LikeService {
     }
 
     // 모두 가져오기
-//    public List<LectureLike> getAllLikeList() {
-//
-//    }
+    public List<LectureLike> getAllLikeList() {
+        return lectureLikeRepository.findAll();
+    }
 
 }
