@@ -9,8 +9,7 @@ public interface KafkaProcessor {
 
 
     String INPUT = "signedUpTopic";
-    String OUTPUT = "detailShownTopic";
-    String OUTPUT2 = "likedTopic";
+    String OUTPUT = "LectureTopic";
 
     @Input(INPUT)
     SubscribableChannel inboundTopic();
@@ -18,6 +17,5 @@ public interface KafkaProcessor {
     @Output(OUTPUT)
     MessageChannel outboundTopic();
 
-//    @Output(OUTPUT2)
-//    MessageChannel outboundTopic2();
+
 }

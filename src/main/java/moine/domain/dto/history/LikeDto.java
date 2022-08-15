@@ -1,4 +1,4 @@
-package moine.domain.dto;
+package moine.domain.dto.history;
 
 import lombok.*;
 
@@ -7,10 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DetailShowDto {
+public class LikeDto {
     private Long id;
     private Long userId;
     private Long lectureId;
     private String category;
-    private Integer clickCount;
 }
