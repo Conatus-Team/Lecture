@@ -1,6 +1,7 @@
 package moine.domain.service;
 
 import lombok.RequiredArgsConstructor;
+import moine.domain.dto.SignUpDto;
 import moine.domain.entity.LectureCrawling;
 import moine.domain.entity.User;
 import moine.domain.repository.UserRepository;
@@ -15,24 +16,49 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    // create
-    public User postUser(String userName, String userNickname) {
-        User user = new User();
+    public boolean validationUser(long userId) {
+        // 값 존재
+        if(userRepository.existsByUserId(userId)){
+            return false;
+        }
 
-        user.setUserName(userName);
-        user.setUserNickname(userNickname);
-
-
-        this.userRepository.save(user);
-
-        return user;
+        return true;
     }
+
+    // create
+    public User postUser(long userId, String email, String userName, String userNickname) {
+        if(validationUser(userId)){
+            User user = new User();
+
+            user.setUserId(userId);
+            user.setEmail(email);
+            user.setUserName(userName);
+            user.setUserNickname(userNickname);
+
+            User result = this.userRepository.save(user);
+
+            return result;
+        }
+        else{
+            return null;
+        }
+
+    }
+
+
 
     // DB에서 가져오기
     public User getUser(Long userId) {
         // 크롤링 데이터 불러오기
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findByUserId(userId);
 
         return user;
+    }
+
+    // delete all
+    public String deleteUser() {
+        userRepository.deleteAll();
+
+        return "모든 사용자 삭제 성공";
     }
 }

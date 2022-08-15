@@ -4,6 +4,8 @@ import moine.LectureApplication;
 import moine.config.kafka.KafkaProcessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import moine.domain.entity.LectureDetailShow;
+import org.springframework.beans.BeanUtils;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
@@ -11,13 +13,18 @@ import org.springframework.util.MimeTypeUtils;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 public class AbstractEvent {
 
     String eventType;
     Long timestamp;
+
+
+    public AbstractEvent(Object aggregate) {
+        this();
+        BeanUtils.copyProperties(aggregate, this);
+    }
 
     public AbstractEvent(){
         this.setEventType(this.getClass().getSimpleName());

@@ -1,29 +1,18 @@
-//package moine.main;
-//
-//import io.cucumber.junit.Cucumber;
-//import io.cucumber.junit.CucumberOptions;
-//import org.junit.runner.RunWith;
-//
-//@RunWith(Cucumber.class)
-//@CucumberOptions(plugin={"pretty","html:target/cucumber"},
-//                features = "src/test/resources/features",
-//                extraGlue="moine/common")
-//public class TestMain {
-//
-//
-//}
+
 package moine.main;
 
+import moine.domain.entity.LectureCrawling;
 import moine.domain.entity.LectureTestEntity;
 import moine.domain.entity.User;
+import moine.domain.repository.LectureLikeRepository;
 import moine.domain.repository.LectureTestRepository;
 import moine.domain.repository.UserRepository;
+import moine.domain.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,9 +21,35 @@ import static org.junit.Assert.assertEquals;
 class TestMain {
 
 
-    // 크롤링
     @Autowired
     private LectureTestRepository lectureTestRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+
+
+    @Autowired
+    private LectureLikeRepository lectureLikeRepository;
+
+
+    private final UserService userService = new UserService();
+
+    // 찜하기
+    @Test
+    void likeJpa(){
+        System.out.println("userRepository.findAll() = " + userRepository.findAll());;
+
+//        // TODO : 찜한 강의들 id 가져오기
+//        List<LectureCrawling> test = lectureLikeRepository.findLectureCrawlingByUser(userService.getUser(Long.valueOf(1)));
+//        test.forEach(
+//                LectureCrawling -> System.out.println("LectureCrawling = " + LectureCrawling)
+//        );
+    }
+
+
+    // 크롤링
+
 
     @Test
     void crawlingJpa() {
@@ -87,8 +102,7 @@ class TestMain {
 
 
     // User
-    @Autowired
-    private UserRepository userRepository;
+
 
     @Test
     void testUserJpa() {

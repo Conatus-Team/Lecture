@@ -15,8 +15,8 @@ public class Lecture  {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long lectureId;
-    
-    
+
+
     private Long likeCount;
 
     @PostPersist
