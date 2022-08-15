@@ -63,7 +63,7 @@ public class Lecture  {
     }
 
 
-    public static void updateRecommendedLecture(LetureRecommended letureRecommended){
+    public static void updateRecommendedLecture(LectureRecommended lectureRecommended){
 
         Lecture lecture = new Lecture();
         /*
