@@ -2,13 +2,12 @@ package moine.infra;
 
 import lombok.RequiredArgsConstructor;
 import moine.config.kafka.KafkaProcessor;
-import moine.domain.dto.SignUpDto;
+import moine.domain.entity.LectureRecommend;
 import moine.domain.entity.User;
-import moine.domain.event.LetureRecommended;
+import moine.domain.event.LectureRecommended;
 import moine.domain.event.SignedUp;
-import moine.domain.repository.LectureRepository;
+import moine.domain.service.RecommendService;
 import moine.domain.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
@@ -19,37 +18,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class PolicyHandler{
-    @Autowired
-    LectureRepository lectureRepository;
-
+    private final RecommendService recommendService;
     private final UserService userService;
 
+//
 //    @StreamListener(KafkaProcessor.INPUT)
-//    public void whatever(@Payload String eventString){}
-
-    // ** 발행 **
-
-    // RecommendSystem에게 강의 클릭 정보 발행
-
-
-    // RecommendSystem에게 찜한 강의 정보 발행
-
-    @StreamListener(KafkaProcessor.INPUT)
-    public void whatever(@Payload String string) {
-        System.out.println("============================================================");
-        System.out.println("============================================================");
-        System.out.println(string);
-        System.out.println("============================================================");
-        System.out.println("============================================================");
-    }
+//    public void whatever(@Payload String string) {
+//        System.out.println(string);
+//    }
 
     // ** 구독 **
     // Auth로 부터 회원가입 유저 구독
     @StreamListener(KafkaProcessor.INPUT)
     public void postUser(@Payload SignedUp signedUp) {
-        // if (!signedUp.validate()) throw new RuntimeException();
+//         if (!signedUp.validate()) throw new RuntimeException();
+         if (!signedUp.validate()) return;
 
+        System.out.println("=============================================");
+        System.out.println("=================//signedUp====================");
         System.out.println(signedUp);
+        System.out.println("=============================================");
+        System.out.println("=============================================");
         User newUser = userService.postUser(
                 signedUp.getUserId(),
                 signedUp.getEmail(),
@@ -59,38 +48,29 @@ public class PolicyHandler{
 
         System.out.println("Lecture 사용자 회원가입 성공!");
         System.out.println(newUser);
-
-//        userService.postUser2(signedUp);
-
+        System.out.println("=================signedUp//====================");
     }
 
 
     // RecommendSystem으로 부터 추천 강의 구독
+    @StreamListener(KafkaProcessor.INPUT)
+    public void updateLectureRecommended(@Payload LectureRecommended lectureRecommended){
+         if(!lectureRecommended.validate()) return;
+        System.out.println("================================================");
+        System.out.println("=============//letureRecommended================");
+        System.out.println(lectureRecommended);
+        System.out.println("================================================");
+        System.out.println("================================================");
+        LectureRecommend newRecommendLecture = recommendService.postRecommend(
+                lectureRecommended.getLectureId(),
+                lectureRecommended.getUserId()
+        );
 
-
-
-
-//    @StreamListener(KafkaProcessor.INPUT)
-//    public void wheneverLetureRecommended_UpdateRecommendedLecture(@Payload LetureRecommended letureRecommended){
-//
-//        System.out.println("안녕");
-//
-//        if(!letureRecommended.validate()) return;
-//        LetureRecommended event = letureRecommended;
-//        System.out.println("\n\n##### listener UpdateRecommendedLecture : " + letureRecommended.toJson() + "\n\n");
-//
-//
-//
-//
-//        // Sample Logic //
-//        System.out.println("크크크ㅡㅡㅡㅋ....");
-//
-//        Lecture.updateRecommendedLecture(event);
-//
-//
-//
-//
-//    }
+        System.out.println("추천 강의 저장 성공!");
+        System.out.println(newRecommendLecture);
+        System.out.println("================================================");
+        System.out.println("===============letureRecommended//===============");
+    }
 
 
 }

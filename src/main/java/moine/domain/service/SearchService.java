@@ -2,12 +2,10 @@ package moine.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import moine.domain.entity.LectureCrawling;
-import moine.domain.entity.LectureDetailShow;
 import moine.domain.entity.LectureSearch;
 import moine.domain.entity.User;
 import moine.domain.repository.LectureCrawlingRepository;
 import moine.domain.repository.LectureSearchRepository;
-import moine.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +37,7 @@ public class SearchService {
 
     // lecture_search 디비에 어떤 userid가 어떤 키워드를 검색했는지 저장
     public LectureSearch saveSearch(String keyword, Long userId) {
-        User user = userService.getUser(userId);
+        User user = userService.getUserById(userId);
 
         LectureSearch search = new LectureSearch();
         search.setKeyword(keyword); // 분류

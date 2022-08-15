@@ -6,7 +6,6 @@ import moine.domain.entity.LectureDetailShow;
 import moine.domain.repository.LectureDetailShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class DetailShowService {
         List<LectureDetailShow> lectureDetailShow =
                 lectureDetailShowRepository.findByLectureCrawlingAndUser(
                         crawlingService.getLectureById(lectureId),
-                        userService.getUser(userId)
+                        userService.getUserById(userId)
                 );
 
 
@@ -37,7 +36,7 @@ public class DetailShowService {
             LectureCrawling lecture = crawlingService.getLectureById(lectureId);
             newLectureDetailShow.setLectureCrawling(lecture);
             newLectureDetailShow.setCategoryName(lecture.getCategoryName());
-            newLectureDetailShow.setUser(userService.getUser(userId));
+            newLectureDetailShow.setUser(userService.getUserById(userId));
             newLectureDetailShow.setClickCount(1);
 
             lectureDetailShowRepository.save(newLectureDetailShow);

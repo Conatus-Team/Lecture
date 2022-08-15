@@ -3,8 +3,6 @@ package moine.domain.service;
 import lombok.RequiredArgsConstructor;
 import moine.domain.entity.LectureCrawling;
 import moine.domain.entity.LectureLike;
-import moine.domain.entity.User;
-import moine.domain.repository.LectureIdMapping;
 import moine.domain.repository.LectureLikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +25,7 @@ public class LikeService {
         List<LectureLike> lectureLike =
                 lectureLikeRepository.findByLectureCrawlingAndUser(
                         crawlingService.getLectureById(lectureId),
-                        userService.getUser(userId)
+                        userService.getUserById(userId)
                 );
 
         if(lectureLike.isEmpty()){
@@ -36,7 +34,7 @@ public class LikeService {
             LectureCrawling lecture = crawlingService.getLectureById(lectureId);
             newLectureLike.setLectureCrawling(lecture);
             newLectureLike.setCategoryName(lecture.getCategoryName());
-            newLectureLike.setUser(userService.getUser(userId));
+            newLectureLike.setUser(userService.getUserById(userId));
 
             this.lectureLikeRepository.save(newLectureLike);
 
@@ -59,7 +57,7 @@ public class LikeService {
         List<LectureLike> lectureLike =
                 lectureLikeRepository.findByLectureCrawlingAndUser(
                         crawlingService.getLectureById(lectureId),
-                        userService.getUser(userId)
+                        userService.getUserById(userId)
                 );
         if(lectureLike.isEmpty()){
             // 값 없음. 삭제 불가
@@ -82,7 +80,7 @@ public class LikeService {
     public List<Long> likeList(Long userId){
 
         List<LectureLike> list =
-                lectureLikeRepository.findByUser(userService.getUser(userId));
+                lectureLikeRepository.findByUser(userService.getUserById(userId));
 
         List<Long> lecture_id = new ArrayList();
         for(LectureLike lecturelike : list){
