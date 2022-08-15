@@ -6,6 +6,7 @@ import moine.domain.entity.LectureDetailShow;
 import moine.domain.repository.LectureDetailShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -55,7 +56,11 @@ public class DetailShowService {
         return lectureDetailShow.get(0);
     }
 
-
+    // 모두 가져오기
+    public List<LectureDetailShow> getAllLectureDetailShow(){
+        List<LectureDetailShow> lectureDetailShowList = lectureDetailShowRepository.findAll();
+        return lectureDetailShowList;
+    }
 
 
 

@@ -6,7 +6,10 @@ import moine.domain.entity.LectureCrawling;
 import moine.domain.entity.LectureDetailShow;
 import moine.domain.entity.LectureLike;
 import moine.domain.entity.User;
+import moine.domain.event.LectureDetailShown;
 import moine.domain.service.*;
+import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +39,26 @@ public class LectureController {
         return list;
 
     }
+
+    // 관리자
+    // 카프카 이벤트 발송
+    // Recommend System 서버로 강의 자세히보기, 찜하기, 키워드 정보 전송
+    @GetMapping("/send")
+    public String sendDetailShow(HttpServletRequest request) {
+        // 강의 자세히 보기
+        List<LectureDetailShow> detailShowList = detailShowService.getAllLectureDetailShow();
+        LectureDetailShown detailShownMessage = new LectureDetailShown(detailShowList);
+        detailShownMessage.publish();
+
+        // 찜하기
+
+
+        // 키워드
+
+        return "전송 완료";
+    }
+
+
 
     // 사용자
     // 회원가입

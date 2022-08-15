@@ -9,7 +9,7 @@ public interface KafkaProcessor {
 
 
     String INPUT = "signedUpTopic";
-    String OUTPUT = "detailShowedTopic";
+    String OUTPUT = "detailShownTopic";
     String OUTPUT2 = "likedTopic";
 
     @Input(INPUT)
@@ -18,4 +18,6 @@ public interface KafkaProcessor {
     @Output(OUTPUT)
     MessageChannel outboundTopic();
 
+//    @Output(OUTPUT2)
+//    MessageChannel outboundTopic2();
 }
