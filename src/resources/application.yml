@@ -7,7 +7,7 @@ spring:
   session:
     jdbc:
       initialize-schema: always
-  profiles: local
+  profiles: aws
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
