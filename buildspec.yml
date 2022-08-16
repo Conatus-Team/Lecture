@@ -7,7 +7,7 @@ paths:
 phases:
   install:
     runtime-versions:
-      java: openjdk8
+      java: corretto11
     commands:
       - aws configure set aws_access_key_id $KEY_ID --profile $EKS_PROFILE
       - aws configure set aws_secret_access_key $SECRET_KEY --profile $EKS_PROFILE
