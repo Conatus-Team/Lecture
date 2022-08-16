@@ -25,7 +25,8 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: ${KAFKA_ENDPOINT}
+#          brokers: ${KAFKA_ENDPOINT}
+          brokers: moine-kafka-0.moine-kafka-headless.moine.svc.cluster.local:9092
         streams:
           binder:
             configuration:
