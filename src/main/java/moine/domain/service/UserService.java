@@ -1,13 +1,10 @@
 package moine.domain.service;
 
 import lombok.RequiredArgsConstructor;
-import moine.domain.entity.LectureCrawling;
 import moine.domain.entity.User;
 import moine.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,24 +12,49 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public boolean validationUser(long userId) {
+        // 값 존재
+        if(userRepository.existsByUserId(userId)){
+            return false;
+        }
+
+        return true;
+    }
+
     // create
-    public User postUser(String userName, String userNickname) {
-        User user = new User();
+    public User postUser(long userId, String email, String userName, String userNickname) {
+        if(validationUser(userId)){
+            User user = new User();
 
-        user.setUserName(userName);
-        user.setUserNickname(userNickname);
+            user.setUserId(userId);
+            user.setEmail(email);
+            user.setUserName(userName);
+            user.setUserNickname(userNickname);
+
+            User result = this.userRepository.save(user);
+
+            return result;
+        }
+        else{
+            return null;
+        }
+
+    }
 
 
-        this.userRepository.save(user);
+
+    // DB에서 가져오기
+    public User getUserById(Long userId) {
+        // 크롤링 데이터 불러오기
+        User user = userRepository.findByUserId(userId);
 
         return user;
     }
 
-    // DB에서 가져오기
-    public User getUser(Long userId) {
-        // 크롤링 데이터 불러오기
-        User user = userRepository.findById(userId).get();
+    // delete all
+    public String deleteUser() {
+        userRepository.deleteAll();
 
-        return user;
+        return "모든 사용자 삭제 성공";
     }
 }

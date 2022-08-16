@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LikeDto {
+public class LectureLikeDto {
     private long lectureId;
     private long userId;
 }
