@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: lecture
-          image: username/lecture:latest
+          image: 357806352922.dkr.ecr.ap-northeast-2.amazonaws.com/moine_lecture:latest
           ports:
             - containerPort: 8080
           env:
