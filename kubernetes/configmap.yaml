@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lecture-configmap
+  namespace: moine
+data:
+  DATABASE_USERID: 123
+  DATABASE_PASSWORD: 123
+  KAFKA_ENDPOINT: 1234
