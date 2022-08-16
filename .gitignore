@@ -46,4 +46,4 @@ node_modules
 .pem
 
 # DB 정보 숨기기
-application.yml
+#application.yml
