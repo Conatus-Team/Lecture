@@ -5,8 +5,9 @@ spring:
   session:
     jdbc:
       initialize-schema: always
-  profiles:
-    default: local
+  config:
+    activate:
+      on-profile: aws
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
