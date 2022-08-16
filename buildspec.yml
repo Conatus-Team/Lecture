@@ -30,6 +30,6 @@ phases:
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
       - aws eks --region $AWS_DEFAULT_REGION update-kubeconfig --name $EKS_CLUSTER --profile $EKS_PROFILE
-      - kubectl apply -n $EKS_NAMESPACE -f k8s/deployment.yml
+      - kubectl apply -n $EKS_NAMESPACE -f kubernetes/deployment.yml
       - kubectl -n $EKS_NAMESPACE scale deploy $EKS_DEPLOY --replicas=0
       - kubectl -n $EKS_NAMESPACE scale deploy $EKS_DEPLOY --replicas=1
