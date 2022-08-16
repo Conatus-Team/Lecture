@@ -4,6 +4,6 @@ metadata:
   name: lecture-configmap
   namespace: moine
 data:
-  DATABASE_USERID: 123
-  DATABASE_PASSWORD: 123
-  KAFKA_ENDPOINT: 1234
+  database_userid: "123"
+  database_password: "123"
+  kafka_endpoint: "1234"
