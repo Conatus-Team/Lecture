@@ -43,9 +43,10 @@ public class SearchService {
         search.setKeyword(keyword); // 분류
 //        search.setUser(userId);
         search.setUser(user);
-        this.lectureSearchRepository.save(search);  // 첫번째 강의 저장
 
-        return search;
+        LectureSearch result = this.lectureSearchRepository.save(search);  // 첫번째 강의 저장
+
+        return result;
     }
 
     // 모두 가져오기

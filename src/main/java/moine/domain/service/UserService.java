@@ -21,6 +21,12 @@ public class UserService {
         return true;
     }
 
+    // 유저 존재 여부 확인
+    public boolean existsUser(long userId) {
+        return userRepository.existsByUserId(userId);
+    }
+
+
     // create
     public User postUser(long userId, String email, String userName, String userNickname) {
         if(validationUser(userId)){

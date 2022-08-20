@@ -38,6 +38,12 @@ public class CrawlingService {
 
     }
 
+    // 강의 존재 여부
+    public boolean existsLectureId(long lectureId) {
+        return lectureCrawlingRepository.existsById(lectureId);
+    }
+
+
     // DB 저장
     public List<LectureCrawlingVO> saveLectureCrawlingList(){
 

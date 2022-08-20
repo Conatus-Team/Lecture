@@ -25,8 +25,14 @@ public class LectureController {
     private final UserService userService;
     private final LikeService likeService;
     private final DetailShowService detailShowService;
+    private final RecommendService recommendService;
 
-    // 관리자
+    /*
+     ********************
+            관리자
+     ********************
+    */
+
     // 크롤링 실행 및 DB 저장
     @GetMapping("/crawlingSave")
     public List<LectureCrawlingVO> LectureCrawlingListSave(HttpServletRequest request){
@@ -39,11 +45,10 @@ public class LectureController {
 
     }
 
-    // 관리자
     // 카프카 이벤트 발송
     // Recommend System 서버로 강의 자세히보기, 찜하기, 키워드 정보 전송
     @GetMapping("/send")
-    public String sendDetailShow(HttpServletRequest request) {
+    public String sendToRecommendSystem(HttpServletRequest request) {
         // 강의 자세히 보기
         List<LectureDetailShow> detailShowList = detailShowService.getAllLectureDetailShow();
         LectureDetailShown detailShownMessage = new LectureDetailShown(detailShowList);
@@ -62,7 +67,18 @@ public class LectureController {
         return "전송 완료";
     }
 
+    // 사용자 모두 삭제
+    @DeleteMapping("")
+    public String deleteAllUser(HttpServletRequest request) {
+        return userService.deleteUser();
+    }
 
+
+    /*
+     ********************
+            사용자
+     ********************
+    */
 
     // 사용자
     // 회원가입
@@ -74,105 +90,139 @@ public class LectureController {
 //        return newUser;
 //    }
 
-    // 관리자
-    // 사용자 모두 삭제
-    @DeleteMapping("")
-    public String deleteAllUser(HttpServletRequest request) {
-        return userService.deleteUser();
-    }
 
-
-    // 사용자
-    // 모든 강의 보기 - 로그인 이전
+    // 강의 첫 화면
     @GetMapping("")
-    public List<LectureCrawling> getLectureCrawlingList(HttpServletRequest request) {
+    public LikeAndRecommendDto getLecture(@RequestHeader Long userId) {
+        // 검증
+        if(!userService.existsUser(userId)){
+            return null;
+        }
 
-        // 크롤링 데이터 불러오기
-        List<LectureCrawling> list = crawlingService.getLectureCrawlingList();
+        // 로그인 전 : 전체 강의
+        if (userId == 0) {
+            // 크롤링 데이터 불러오기
+            List<LectureCrawling> list = crawlingService.getLectureCrawlingList();
+            LikeAndRecommendDto result = new LikeAndRecommendDto();
+            result.setCrawlingList(list);
 
+            return result;
 
+        }
 
-        return list;
-
-    }
-
-    // 사용자
-    // 모든 강의 보기 - 로그인 이후
-    @PostMapping("")
-    public LectureAllDto postLectureCrawlingList(@RequestBody UserIdDto userIdDto) {
-
-        // 크롤링 데이터 불러오기
-        List<LectureCrawling> list = crawlingService.getLectureCrawlingList();
-        List<Long> id_list = likeService.likeList(userIdDto.getUserId());
-
-        LectureAllDto result = new LectureAllDto();
-        result.setData(list);
-        result.setLikeId(id_list);
-
+        // 로그인 후 : 추천 강의, 찜한 강의만 존재 (전체 강의 보여주지 않음)
+        LikeAndRecommendDto result = new LikeAndRecommendDto();
+        result.setLikeList(likeService.getLikeListByUserId(userId));
+        result.setRecommendList(recommendService.getAllRecommendList());
 
         return result;
 
     }
 
 
-    // 사용자
+    // 모든 강의 보기
+    @GetMapping("/all")
+    public LectureAllDto getLectureCrawlingList(@RequestHeader Long userId) {
+        // 검증
+        if(!userService.existsUser(userId)){
+            return null;
+        }
+
+        if(userId == 0) {
+            List<LectureCrawling> list = crawlingService.getLectureCrawlingList();
+            LectureAllDto result = new LectureAllDto();
+            result.setData(list);
+
+            return result;
+        }
+
+        // 찜한 강의 여부 추가
+        List<LectureCrawling> list = crawlingService.getLectureCrawlingList();
+        List<Long> id_list = likeService.likeList(userId);
+        LectureAllDto result = new LectureAllDto();
+        result.setData(list);
+        result.setLikeId(id_list);
+
+        return result;
+    }
+
+
     // 특정 강의 보기
-    @PostMapping("/{id}")
-    public LectureDetailShow getLectureItem(@PathVariable Long id, @RequestBody UserIdDto userIdDto){
-        // id에 해당하는 강의
-//        LectureCrawling lectureItem = crawlingService.getLectureById(id);
+    @PostMapping("/{lectureId}")
+    public LectureCrawling getLectureItem(@PathVariable Long lectureId, @RequestHeader Long userId){
+        // 검증
+        if(!userService.existsUser(userId) || !crawlingService.existsLectureId(lectureId)){
+            return null;
+        }
+
+        if(userId == 0) {
+            return crawlingService.getLectureById(lectureId);
+        }
 
         // lecture_detail_show 에 클릭한 강의, 유저를 저장하고 클릭 횟수 증가
-        LectureDetailShow lectureDetailShow = detailShowService.saveLectureDetailShow(id, userIdDto.getUserId());
-
-        return lectureDetailShow;
+        detailShowService.saveLectureDetailShow(lectureId, userId);
+        return crawlingService.getLectureById(lectureId);
 
     }
 
 
-
-    // 사용자
     // 강의 검색하기
     @PostMapping("/search")
-    public List<LectureCrawling> postLectureSearchResult(@RequestBody LectureSearchDto searchDto) {
-        String keyword = searchDto.getKeyword();
-        Long userId = searchDto.getUserId();
+    public List<LectureCrawling> postLectureSearchResult(@RequestParam("keyword") String keyword, @RequestHeader Long userId) {
+        // 검증
+        if(!userService.existsUser(userId)){
+            return null;
+        }
 
-        // 키워드를 포함하는 강의를 DB에서 가져오기
+        if(userId == 0) {
+            // 키워드를 포함하는 강의를 DB에서 가져오기
+            List<LectureCrawling> results = searchService.search(keyword);
+            return results;
+        }
+
         List<LectureCrawling> results = searchService.search(keyword);
-
         // lecture_search 디비에 어떤 userid가 어떤 키워드를 검색했는지 저장
         searchService.saveSearch(keyword, userId);
-
-        // 추출된 강의 API 전송
         return results;
     }
 
+    // 찜하기 목록 보기
+    @GetMapping("/like")
+    public List<LectureLike> getLectureLikeList (@RequestHeader Long userId){
+        // 검증
+        if(!userService.existsUser(userId)){
+            return null;
+        }
+
+        if(userId == 0){
+            return null;
+        }
+        return likeService.getLikeListByUserId(userId);
+    }
+
     // 강의 찜하기 추가
-    @PostMapping("/like")
-    public LectureLike postLectureLike(@RequestBody LectureLikeDto likeDto) {
-        Long lectureId = likeDto.getLectureId();
-        Long userId = likeDto.getUserId();
+    @PostMapping("/like/{lectureId}")
+    public LectureLike postLectureLike(@PathVariable Long lectureId, @RequestHeader Long userId) {
+        // 검증
+        if(!userService.existsUser(userId) || !crawlingService.existsLectureId(lectureId)){
+            return null;
+        }
 
         LectureLike lecture = likeService.postLike(lectureId, userId);
-
         return lecture;
 
     }
 
     // 강의 찜하기 해제
-    @DeleteMapping("/like")
-    public LectureLike deleteLectureLike(@RequestBody LectureLikeDto likeDto) {
-        Long lectureId = likeDto.getLectureId();
-        Long userId = likeDto.getUserId();
-
+    @DeleteMapping("/like/{lectureId}")
+    public LectureLike deleteLectureLike(@PathVariable Long lectureId, @RequestHeader Long userId) {
+        // 검증
+        if(!userService.existsUser(userId) || !crawlingService.existsLectureId(lectureId)){
+            return null;
+        }
         LectureLike lecture = likeService.deleteLike(lectureId, userId);
-
         return lecture;
-
     }
-
-
 
 
 
