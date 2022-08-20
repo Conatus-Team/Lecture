@@ -174,6 +174,11 @@ public class LectureController {
 
 
 
+    @GetMapping("ping")
+    public String getPing() {
 
+        return "success";
+
+    }
 
 }
