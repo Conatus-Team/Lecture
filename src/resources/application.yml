@@ -26,7 +26,8 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: moine-kafka.moine.svc.cluster.local:9092
+#          brokers: moine-kafka.moine.svc.cluster.local
+          brokers: moine-kafka.moine.svc.cluster.local:9092, moine-kafka-0.moine-kafka-headless.moine.svc.cluster.local:9092
         streams:
           binder:
             configuration:
@@ -37,25 +38,12 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: Group
-          destination: conatus
+          group: Lecture
+          destination: moine
           contentType: application/json
         event-out:
-          destination: conatus
+          destination: moine
           contentType: application/json
-#spring.cloud.stream:
-#  kafka:
-#    binder:
-#      brokers: moine-kafka-0.moine-kafka-headless.moine.svc.cluster.local:9092
-#  bindings:
-#    input:
-#      destination: conatus
-#      contentType: application/json
-#      group: Group
-#    output:
-#      destination: conatus
-#      contentType: application/json
-#      group: Group
 
 logging:
   level:
