@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: moine-lecture-backend
+  name: lecture-backend
   labels:
-    app: moine-lecture-backend
+    app: lecture-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: moine-lecture-backend
+      app: lecture-backend
   template:
     metadata:
       labels:
-        app: moine-lecture-backend
+        app: lecture-backend
     spec:
       containers:
-        - name: moine-lecture-backend
+        - name: lecture-backend
           image: 357806352922.dkr.ecr.ap-northeast-2.amazonaws.com/moine_lecture:latest
           ports:
             - containerPort: 8080

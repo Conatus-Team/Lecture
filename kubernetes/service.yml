@@ -8,8 +8,8 @@ spec:
   type: LoadBalancer
   ports:
     - port: 8080
-      name: moine-lecture-backend
+      name: lecture-backend
       protocol: TCP
       targetPort: 8080
   selector:
-    app: moine-lecture-backend
+    app: lecture-backend
