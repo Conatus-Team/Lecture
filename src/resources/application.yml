@@ -1,9 +1,6 @@
 server:
   port: ${SERVER_PORT}
 
-ping:
-  string: ${PING_MSG}
-
 ---
 spring:
   session:
@@ -43,3 +40,6 @@ logging:
   level:
     org.hibernate.type: trace
     org.springframework.cloud: debug
+
+ping:
+  msg: ${PING_MSG}

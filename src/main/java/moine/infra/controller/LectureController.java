@@ -27,7 +27,7 @@ public class LectureController {
     private final LikeService likeService;
     private final DetailShowService detailShowService;
 
-    @Value("${ping.string}")
+    @Value("${ping.msg}")
     private String msg;
 
     // 관리자
