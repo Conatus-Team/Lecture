@@ -8,3 +8,4 @@ data:
   database_password: "123"
   kafka_endpoint: "1234"
   server_port: 8080
+  ping_msg: "hello"

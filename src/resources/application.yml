@@ -25,8 +25,7 @@ spring:
 spring.cloud.stream:
   kafka:
     binder:
-      brokers: moine-kafka-0.moine-kafka-headless.moine.svc.cluster.local
-      defaultBrokerPort: 9092
+      brokers: moine-kafka-0.moine-kafka-headless.moine.svc.cluster.local:9092
   bindings:
     input:
       destination: conatus
@@ -41,3 +40,6 @@ logging:
   level:
     org.hibernate.type: trace
     org.springframework.cloud: debug
+
+ping:
+  string: ${MSG}
