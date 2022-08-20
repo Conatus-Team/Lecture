@@ -42,4 +42,4 @@ logging:
     org.springframework.cloud: debug
 
 ping:
-  string: ${MSG}
+  string: ${PING_MSG}

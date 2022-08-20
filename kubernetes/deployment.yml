@@ -45,6 +45,11 @@ spec:
                 configMapKeyRef:
                   name: lecture-configmap
                   key: server_port
+            - name: PING_MSG
+              valueFrom:
+                configMapKeyRef:
+                  name: lecture-configmap
+                  key: ping_msg
 #          readinessProbe:
 #            httpGet:
 #              path: '/actuator/health'
