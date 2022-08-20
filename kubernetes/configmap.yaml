@@ -7,3 +7,4 @@ data:
   database_userid: "123"
   database_password: "123"
   kafka_endpoint: "1234"
+  server_port: 8080

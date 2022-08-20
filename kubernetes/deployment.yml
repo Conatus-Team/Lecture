@@ -35,6 +35,11 @@ spec:
                 configMapKeyRef:
                   name: lecture-configmap
                   key: kafka_endpoint
+            - name: SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: lecture-configmap
+                  key: server_port
 #          readinessProbe:
 #            httpGet:
 #              path: '/actuator/health'
