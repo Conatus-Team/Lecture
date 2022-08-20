@@ -22,19 +22,40 @@ spring:
     password: ${DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-spring.cloud.stream:
-  kafka:
-    binder:
-      brokers: moine-kafka-0.moine-kafka-headless.moine.svc.cluster.local:9092
-  bindings:
-    input:
-      destination: conatus
-      contentType: application/json
-      group: Group
-    output:
-      destination: conatus
-      contentType: application/json
-      group: Group
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: moine-kafka.moine.svc.cluster.local:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: Group
+          destination: conatus
+          contentType: application/json
+        event-out:
+          destination: conatus
+          contentType: application/json
+#spring.cloud.stream:
+#  kafka:
+#    binder:
+#      brokers: moine-kafka-0.moine-kafka-headless.moine.svc.cluster.local:9092
+#  bindings:
+#    input:
+#      destination: conatus
+#      contentType: application/json
+#      group: Group
+#    output:
+#      destination: conatus
+#      contentType: application/json
+#      group: Group
 
 logging:
   level:
