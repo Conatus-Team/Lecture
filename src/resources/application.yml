@@ -26,19 +26,23 @@ spring:
     stream:
       kafka:
         binder:
-#          brokers: moine-kafka.moine.svc.cluster.local
-          brokers: moine-kafka.moine.svc.cluster.local, moine-kafka-0.moine-kafka-headless.moine.svc.cluster.local
-          defaultBrokerPort: 9092
+          brokers: moine-kafka.kafka.svc.cluster.local:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        input:
+        event-in:
           group: Lecture
-          destination: moine
+          destination: local
           contentType: application/json
-          binder: kafka
-        output:
-          destination: moine
+        event-out:
+          destination: local
           contentType: application/json
-          binder: kafka
 
 logging:
   level:
