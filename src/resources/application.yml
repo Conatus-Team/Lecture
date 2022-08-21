@@ -2,31 +2,29 @@ server:
   port: ${SERVER_PORT}
 
 ---
+
 spring:
-  session:
-    jdbc:
-      initialize-schema: always
-  profiles:
-    active: aws
+  profiles: default
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: none
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+    database: mysql
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERID}
     password: ${DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  kafka:
+    bootstrap-servers: moine-kafka.kafka.svc.cluster.local:9092
   cloud:
     stream:
       kafka:
         binder:
-            brokers: moine-kafka-0.moine-kafka-headless.kafka.svc.cluster.local:9092
+          brokers: moine-kafka.kafka.svc.cluster.local:9092, moine-kafka-0.moine-kafka-headless.kafka.svc.cluster.local:9092
         streams:
           binder:
             configuration:
@@ -36,18 +34,45 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        authTopic:
+        event-in:
           group: Lecture
           destination: moine
           contentType: application/json
-        lectureTopic:
+        event-out:
           destination: moine
           contentType: application/json
 
 logging:
   level:
+    org.hibernate.SQL: debug
     org.hibernate.type: trace
     org.springframework.cloud: debug
 
+
+---
+
+spring:
+  profiles: aws
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: moine-kafka.kafka.svc.cluster.local:9092, moine-kafka-0.moine-kafka-headless.kafka.svc.cluster.local:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: Lecture
+          destination: moine
+          contentType: application/json
+        event-out:
+          destination: moine
+          contentType: application/json
 ping:
   msg: ${PING_MSG}
