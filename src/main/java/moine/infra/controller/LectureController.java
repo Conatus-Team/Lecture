@@ -30,10 +30,10 @@ public class LectureController {
     @Value("${ping.msg}")
     private String msg;
 
-    @Value("string.cloud.stream.kafka.binder.brokers")
-    private String string_cloud_stream_kafka_binder_brokers;
+    @Value("${spring.cloud.stream.kafka.binder.brokers}")
+    private String spring_cloud_stream_kafka_binder_brokers;
 
-    @Value("spring.kafka.bootstrap-servers")
+    @Value("${spring.kafka.bootstrap-servers}")
     private String spring_kafka_bootstrap_servers;
 
 
