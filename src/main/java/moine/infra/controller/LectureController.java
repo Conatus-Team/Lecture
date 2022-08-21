@@ -190,7 +190,7 @@ public class LectureController {
 
         return msg +
                 "\n\nstring.cloud.stream.kafka.binder.brokers = " +
-                string_cloud_stream_kafka_binder_brokers +
+                spring_cloud_stream_kafka_binder_brokers +
                 "\nspring.kafka.bootstrap-servers = " +
                 spring_kafka_bootstrap_servers;
     }

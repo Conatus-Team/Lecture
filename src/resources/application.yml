@@ -1,10 +1,9 @@
 server:
   port: ${SERVER_PORT}
-
 ---
 
 spring:
-  profiles: default
+  profiles: aws
   jpa:
     hibernate:
       ddl-auto: none
@@ -20,39 +19,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   kafka:
     bootstrap-servers: moine-kafka.kafka.svc.cluster.local:9092
-  cloud:
-    stream:
-      kafka:
-        binder:
-          brokers: localhost:9092
-        streams:
-          binder:
-            configuration:
-              default:
-                key:
-                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                value:
-                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-      bindings:
-        event-in:
-          group: Lecture
-          destination: moine
-          contentType: application/json
-        event-out:
-          destination: moine
-          contentType: application/json
-
-logging:
-  level:
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
-    org.springframework.cloud: debug
-
-
----
-
-spring:
-  profiles: aws
   cloud:
     stream:
       kafka:
