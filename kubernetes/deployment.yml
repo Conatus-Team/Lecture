@@ -23,32 +23,32 @@ spec:
             - name: DATABASE_URL
               valueFrom:
                 configMapKeyRef:
-                  name: lecture-configmap
-                  key: database_url
+                  name: moine-backend-configmap
+                  key: lecture_database_url
             - name: DATABASE_USERID
               valueFrom:
                 configMapKeyRef:
-                  name: lecture-configmap
+                  name: moine-backend-configmap
                   key: database_userid
             - name: DATABASE_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: lecture-configmap
+                  name: moine-backend-configmap
                   key: database_password
             - name: KAFKA_ENDPOINT
               valueFrom:
                 configMapKeyRef:
-                  name: lecture-configmap
+                  name: moine-backend-configmap
                   key: kafka_endpoint
             - name: SERVER_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: lecture-configmap
+                  name: moine-backend-configmap
                   key: server_port
             - name: PING_MSG
               valueFrom:
                 configMapKeyRef:
-                  name: lecture-configmap
+                  name: moine-backend-configmap
                   key: ping_msg
 #          readinessProbe:
 #            httpGet:
