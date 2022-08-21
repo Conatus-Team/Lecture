@@ -38,10 +38,10 @@ spring:
       bindings:
         authTopic:
           group: Lecture
-          destination: local
+          destination: moine
           contentType: application/json
         lectureTopic:
-          destination: local
+          destination: moine
           contentType: application/json
 
 logging:
