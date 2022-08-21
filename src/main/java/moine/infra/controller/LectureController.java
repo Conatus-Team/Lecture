@@ -30,6 +30,13 @@ public class LectureController {
     @Value("${ping.msg}")
     private String msg;
 
+    @Value("string.cloud.stream.kafka.binder.brokers")
+    private String string_cloud_stream_kafka_binder_brokers;
+
+    @Value("spring.kafka.bootstrap-servers")
+    private String spring_kafka_bootstrap_servers;
+
+
     // 관리자
     // 크롤링 실행 및 DB 저장
     @GetMapping("/crawlingSave")
@@ -180,7 +187,12 @@ public class LectureController {
 
     @GetMapping("/ping")
     public String getPing() {
-        return msg;
+
+        return msg +
+                "\n\nstring.cloud.stream.kafka.binder.brokers = " +
+                string_cloud_stream_kafka_binder_brokers +
+                "\nspring.kafka.bootstrap-servers = " +
+                spring_kafka_bootstrap_servers;
     }
 
 }
