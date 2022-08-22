@@ -19,12 +19,12 @@ spring:
     password: ${DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   kafka:
-    bootstrap-servers: ${KAFKA_ENDPOINT}
+    bootstrap-servers: cloudflow-strimzi-kafka-bootstrap.kafka.svc.cluster.local:9092
   cloud:
     stream:
       kafka:
         binder:
-          brokers: moine-kafka.kafka.svc.cluster.local:9092, moine-kafka-0.moine-kafka-headless.kafka.svc.cluster.local:9092
+          brokers: cloudflow-strimzi-kafka-0.cloudflow-strimzi-kafka-brokers.kafka.svc.cluster.local:9090, cloudflow-strimzi-kafka-0.cloudflow-strimzi-kafka-brokers.kafka.svc.cluster.local:9091, cloudflow-strimzi-kafka-0.cloudflow-strimzi-kafka-brokers.kafka.svc.cluster.local:9092, cloudflow-strimzi-kafka-0.cloudflow-strimzi-kafka-brokers.kafka.svc.cluster.local:9093
         streams:
           binder:
             configuration:
@@ -59,7 +59,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: moine-kafka.kafka.svc.cluster.local:9092, moine-kafka-0.moine-kafka-headless.kafka.svc.cluster.local:9092
+          brokers: cloudflow-strimzi-kafka-0.cloudflow-strimzi-kafka-brokers.kafka.svc.cluster.local:9090, cloudflow-strimzi-kafka-0.cloudflow-strimzi-kafka-brokers.kafka.svc.cluster.local:9091, cloudflow-strimzi-kafka-0.cloudflow-strimzi-kafka-brokers.kafka.svc.cluster.local:9092, cloudflow-strimzi-kafka-0.cloudflow-strimzi-kafka-brokers.kafka.svc.cluster.local:9093
         streams:
           binder:
             configuration:
