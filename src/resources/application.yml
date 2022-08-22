@@ -18,13 +18,13 @@ spring:
     username: ${DATABASE_USERID}
     password: ${DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
-#  kafka:
-#    bootstrap-servers: 3.38.49.196:9092
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
   cloud:
     stream:
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: ${KAFKA_BROKERS}
         streams:
           binder:
             configuration:
@@ -59,7 +59,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: ${KAFKA_ENDPOINT}
+          brokers: ${KAFKA_BROKERS}
         streams:
           binder:
             configuration:

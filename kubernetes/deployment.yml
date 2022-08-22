@@ -35,11 +35,16 @@ spec:
                 configMapKeyRef:
                   name: moine-backend-configmap
                   key: database_password
-            - name: KAFKA_ENDPOINT
+            - name: KAFKA_BROKERS
               valueFrom:
                 configMapKeyRef:
                   name: moine-backend-configmap
-                  key: kafka_endpoint
+                  key: kafka_brokers
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: moine-backend-configmap
+                  key: kafka_bootstrap_servers
             - name: SERVER_PORT
               valueFrom:
                 configMapKeyRef:
