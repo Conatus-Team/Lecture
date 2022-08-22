@@ -12,13 +12,8 @@ import moine.domain.event.LectureSearched;
 import moine.domain.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.Yaml;
-
 import javax.servlet.http.HttpServletRequest;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,10 +25,6 @@ public class LectureController {
     private final UserService userService;
     private final LikeService likeService;
     private final DetailShowService detailShowService;
-
-    @Value("${ping.msg}")
-    private String msg;
-
 
     // 관리자
     // 크롤링 실행 및 DB 저장
@@ -185,11 +176,6 @@ public class LectureController {
 
     @GetMapping("/ping")
     public String getPing() {
-        try {
-            Map<String, Object> propMap = new Yaml().load(new FileReader("/src/resources/application.yml"));
-            return propMap.toString();
-        } catch (FileNotFoundException e) {
-            return msg;
-        }
+        return "success";
     }
 }

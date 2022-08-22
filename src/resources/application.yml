@@ -18,11 +18,13 @@ spring:
     username: ${DATABASE_USERID}
     password: ${DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+#  kafka:
+#    bootstrap-servers: 3.38.49.196:9092
   cloud:
     stream:
       kafka:
         binder:
-          brokers: moine-kafka.moine.svc.cluster.local:9092
+          brokers: localhost:9092
         streams:
           binder:
             configuration:
@@ -57,7 +59,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: moine-kafka.moine.svc.cluster.local:9092
+          brokers: ${KAFKA_ENDPOINT}
         streams:
           binder:
             configuration:
@@ -74,5 +76,3 @@ spring:
         event-out:
           destination: moine
           contentType: application/json
-ping:
-  msg: ${PING_MSG}
