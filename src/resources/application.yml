@@ -34,11 +34,12 @@ spring:
       bindings:
         event-in:
           group: Lecture
-          destination: moine
+          destination: authTopic
           contentType: application/json
         event-out:
-          destination: moine
+          destination: lectureTopic
           contentType: application/json
+
 
 logging:
   level:
@@ -68,10 +69,10 @@ spring:
       bindings:
         event-in:
           group: Lecture
-          destination: moine
+          destination: authTopic
           contentType: application/json
         event-out:
-          destination: moine
+          destination: lectureTopic
           contentType: application/json
 
 
