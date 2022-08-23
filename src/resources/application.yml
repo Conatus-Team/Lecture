@@ -22,7 +22,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: my-kafka.kafka.svc.cluster.local:9092
         streams:
           binder:
             configuration:
@@ -34,10 +34,10 @@ spring:
       bindings:
         event-in:
           group: Lecture
-          destination: authTopic
+          destination: moine
           contentType: application/json
         event-out:
-          destination: lectureTopic
+          destination: moine
           contentType: application/json
 
 logging:
@@ -68,10 +68,10 @@ spring:
       bindings:
         event-in:
           group: Lecture
-          destination: authTopic
+          destination: moine
           contentType: application/json
         event-out:
-          destination: lectureTopic
+          destination: moine
           contentType: application/json
 
 
