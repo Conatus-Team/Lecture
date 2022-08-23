@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT}
 
 ---
 
@@ -32,11 +32,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        event-in:
-          group: lecture
+        authTopic:
+          group: Lecture
           destination: moine
           contentType: application/json
-        event-out:
+        lectureTopic:
           destination: moine
           contentType: application/json
 
@@ -67,7 +67,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         authTopic:
-          group: lecture
+          group: Lecture
           destination: moine
           contentType: application/json
         lectureTopic:
