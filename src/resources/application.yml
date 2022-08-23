@@ -17,14 +17,12 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERID}
     password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    driver-class-name: com.mysql.jdbc.Driver
   cloud:
     stream:
       kafka:
         binder:
-          brokers: ${KAFKA_BROKERS}
+          brokers: localhost:9092
         streams:
           binder:
             configuration:
@@ -35,7 +33,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: Lecture
+          group: lecture
           destination: moine
           contentType: application/json
         event-out:
@@ -44,13 +42,12 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: debug
     org.hibernate.type: trace
     org.springframework.cloud: debug
 
 
 server:
-  port: 8080
+  port: ${SERVER_PORT}
 ---
 
 spring:
@@ -59,7 +56,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: ${KAFKA_BROKERS}
+          brokers: my-kafka.kafka.svc.cluster.local:9092
         streams:
           binder:
             configuration:
@@ -70,9 +67,11 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: Lecture
+          group: lecture
           destination: moine
           contentType: application/json
         event-out:
           destination: moine
           contentType: application/json
+
+

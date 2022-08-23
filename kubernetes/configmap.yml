@@ -2,10 +2,16 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: lecture-configmap
-  namespace: moine
+  namespace: kafkatest
 data:
+  lecture_database_url: "123"
   database_userid: "123"
   database_password: "123"
-  kafka_endpoint: "1234"
+  kafka_bootstrap_servers: "123"
+  kafka_brokers: "123"
   server_port: 8080
   ping_msg: "hello"
+
+
+
+  kafka-dev-headless

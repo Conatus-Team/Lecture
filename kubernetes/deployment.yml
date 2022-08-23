@@ -19,6 +19,22 @@ spec:
           image: 357806352922.dkr.ecr.ap-northeast-2.amazonaws.com/moine_lecture:latest
           ports:
             - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
           env:
             - name: DATABASE_URL
               valueFrom:
@@ -55,19 +71,3 @@ spec:
                 configMapKeyRef:
                   name: moine-backend-configmap
                   key: ping_msg
-#          readinessProbe:
-#            httpGet:
-#              path: '/actuator/health'
-#              port: 8080
-#            initialDelaySeconds: 10
-#            timeoutSeconds: 2
-#            periodSeconds: 5
-#            failureThreshold: 10
-#          livenessProbe:
-#            httpGet:
-#              path: '/actuator/health'
-#              port: 8080
-#            initialDelaySeconds: 120
-#            timeoutSeconds: 2
-#            periodSeconds: 5
-#            failureThreshold: 5
