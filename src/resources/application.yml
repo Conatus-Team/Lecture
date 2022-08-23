@@ -33,7 +33,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: lecture
+          group: Lecture
           destination: moine
           contentType: application/json
         event-out:
@@ -67,7 +67,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: lecture-backend
+          group: Lecture
           destination: moine
           contentType: application/json
         event-out:
