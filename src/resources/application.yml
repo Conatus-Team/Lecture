@@ -68,10 +68,10 @@ spring:
       bindings:
         event-in:
           group: lecture
-          destination: moine
+          destination: lecture-backend
           contentType: application/json
         event-out:
-          destination: moine
+          destination: lecture-backend
           contentType: application/json
 
 
