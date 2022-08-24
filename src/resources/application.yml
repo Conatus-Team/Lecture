@@ -32,16 +32,13 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        event-in:
+        inboundTopic:
           group: lecture
           destination: myTopic
           contentType: application/json
-          binder: kafka
-        event-out:
-          group: lecture
+        outboundTopic:
           destination: myTopic
           contentType: application/json
-          binder: kafka
 
 logging:
   level:
@@ -69,11 +66,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        authTopic:
+        inboundTopic:
           group: lecture
           destination: myTopic
           contentType: application/json
-        lectureTopic:
+        outboundTopic:
           destination: myTopic
           contentType: application/json
 
