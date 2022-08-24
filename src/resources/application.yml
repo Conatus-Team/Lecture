@@ -32,11 +32,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        inboundTopic:
+        input:
           group: lecture
           destination: myTopic
           contentType: application/json
-        outboundTopic:
+        output:
           destination: myTopic
           contentType: application/json
 
@@ -66,11 +66,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        inboundTopic:
+        input:
           group: lecture
           destination: myTopic
           contentType: application/json
-        outboundTopic:
+        output:
           destination: myTopic
           contentType: application/json
 
