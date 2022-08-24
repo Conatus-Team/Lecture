@@ -33,11 +33,11 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: Lecture
-          destination: authTopic
+          group: moine
+          destination: myTopic
           contentType: application/json
         event-out:
-          destination: lectureTopic
+          destination: myTopic
           contentType: application/json
 
 
@@ -68,11 +68,11 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: Lecture
-          destination: authTopic
+          group: moine
+          destination: myTopic
           contentType: application/json
         event-out:
-          destination: lectureTopic
+          destination: myTopic
           contentType: application/json
 
 

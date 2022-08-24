@@ -8,8 +8,10 @@ import org.springframework.messaging.SubscribableChannel;
 public interface KafkaProcessor {
 
 
+//    String INPUT = "authTopic";
+//    String OUTPUT = "lectureTopic";
+
     String INPUT = "event-in";
-//    String INPUT2 = "recommendTopic";
     String OUTPUT = "event-out";
 
     @Input(INPUT)
