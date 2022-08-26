@@ -6,19 +6,10 @@ server:
 spring:
   profiles: default
   jpa:
-    hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: none
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-  datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERID}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     stream:
       kafka:
@@ -33,22 +24,19 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        input:
-          destination: myTopic
-          group: Lecture
-          binder: kafka
+        event-in:
+          group: order
+          destination: team
           contentType: application/json
-        output:
-          destination: myTopic
-          group: Lecture
-          binder: kafka
+        event-out:
+          destination: team
           contentType: application/json
-
 
 logging:
   level:
     org.hibernate.type: trace
     org.springframework.cloud: debug
+
 
 server:
   port: 8081
@@ -71,9 +59,11 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: Lecture
-          destination: myTopic
+          group: order
+          destination: team
           contentType: application/json
         event-out:
-          destination: myTopic
+          destination: team
           contentType: application/json
+
+
