@@ -8,12 +8,11 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERID}
     password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 
 server:
@@ -44,5 +43,3 @@ spring:
         event-out:
           destination: myTopic
           contentType: application/json
-
-
