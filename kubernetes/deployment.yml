@@ -37,8 +37,9 @@ spec:
             periodSeconds: 5
             failureThreshold: 5
           envFrom:
-            - configmapRef:
+            - configMapRef:
                 name: moine-backend-configmap
+
 #          env:
 #            - name: DATABASE_URL
 #              valueFrom:
