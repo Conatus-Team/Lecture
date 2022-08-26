@@ -1,4 +1,10 @@
+server:
+  port: 8080
+
+---
+
 spring:
+  profiles: default
   jpa:
     hibernate:
       naming:
@@ -13,11 +19,36 @@ spring:
     username: ${DATABASE_USERID}
     password: ${DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: Lecture
+          destination: myTopic
+          contentType: application/json
+        event-out:
+          destination: myTopic
+          contentType: application/json
 
+
+logging:
+  level:
+    org.hibernate.type: trace
+    org.springframework.cloud: debug
 
 server:
-  port: ${SERVER_PORT}
-
+  port: 8081
 ---
 
 spring:
