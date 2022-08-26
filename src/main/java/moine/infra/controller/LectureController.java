@@ -93,7 +93,7 @@ public class LectureController {
 
     // 강의 첫 화면
     @GetMapping("")
-    public LikeAndRecommendDto getLecture(@RequestHeader Long userId) {
+    public LikeAndRecommendDto getLecture(@RequestHeader(value="Authorization") Long userId) {
         // 검증
         if(!userService.existsUser(userId)){
             return null;
@@ -122,7 +122,7 @@ public class LectureController {
 
     // 모든 강의 보기
     @GetMapping("/all")
-    public LectureAllDto getLectureCrawlingList(@RequestHeader Long userId) {
+    public LectureAllDto getLectureCrawlingList(@RequestHeader(value="Authorization") Long userId) {
         // 검증
         if(!userService.existsUser(userId)){
             return null;
@@ -168,7 +168,7 @@ public class LectureController {
 
     // 강의 검색하기
     @PostMapping("/search")
-    public List<LectureCrawling> postLectureSearchResult(@RequestParam("keyword") String keyword, @RequestHeader Long userId) {
+    public List<LectureCrawling> postLectureSearchResult(@RequestParam("keyword") String keyword, @RequestHeader(value="Authorization") Long userId) {
         // 검증
         if(!userService.existsUser(userId)){
             return null;
@@ -188,7 +188,7 @@ public class LectureController {
 
     // 찜하기 목록 보기
     @GetMapping("/like")
-    public List<LectureLike> getLectureLikeList (@RequestHeader Long userId){
+    public List<LectureLike> getLectureLikeList (@RequestHeader(value="Authorization") Long userId){
         // 검증
         if(!userService.existsUser(userId)){
             return null;
@@ -202,7 +202,7 @@ public class LectureController {
 
     // 강의 찜하기 추가
     @PostMapping("/like/{lectureId}")
-    public LectureLike postLectureLike(@PathVariable Long lectureId, @RequestHeader Long userId) {
+    public LectureLike postLectureLike(@PathVariable Long lectureId, @RequestHeader(value="Authorization") Long userId) {
         // 검증
         if(!userService.existsUser(userId) || !crawlingService.existsLectureId(lectureId)){
             return null;
@@ -215,7 +215,7 @@ public class LectureController {
 
     // 강의 찜하기 해제
     @DeleteMapping("/like/{lectureId}")
-    public LectureLike deleteLectureLike(@PathVariable Long lectureId, @RequestHeader Long userId) {
+    public LectureLike deleteLectureLike(@PathVariable Long lectureId, @RequestHeader(value="Authorization") Long userId) {
         // 검증
         if(!userService.existsUser(userId) || !crawlingService.existsLectureId(lectureId)){
             return null;
