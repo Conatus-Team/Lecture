@@ -16,18 +16,13 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import java.util.List;
 
 public class AbstractEvent {
-
     String eventType;
     Long timestamp;
 
-
-    public AbstractEvent(Object aggregate) {
-        this();
-        BeanUtils.copyProperties(aggregate, this);
-    }
-
     public AbstractEvent(){
         this.setEventType(this.getClass().getSimpleName());
+        // SimpleDateFormat defaultSimpleDateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
+        // this.timestamp = defaultSimpleDateFormat.format(new Date());
         this.timestamp = System.currentTimeMillis();
     }
 
@@ -51,7 +46,7 @@ public class AbstractEvent {
              * spring streams 방식
              */
             KafkaProcessor processor = LectureApplication.applicationContext.getBean(KafkaProcessor.class);
-            MessageChannel outputChannel = processor.output();
+            MessageChannel outputChannel = processor.outboundTopic();
 
             outputChannel.send(MessageBuilder
                     .withPayload(json)

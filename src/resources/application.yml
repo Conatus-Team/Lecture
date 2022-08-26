@@ -1,3 +1,21 @@
+spring:
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERID}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: com.mysql.jdbc.Driver
+
+
 server:
   port: ${SERVER_PORT}
 
@@ -7,22 +25,15 @@ spring:
   profiles: default
   jpa:
     hibernate:
-      ddl-auto: none
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-    database: mysql
-  datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERID}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.jdbc.Driver
   cloud:
     stream:
       kafka:
         binder:
-          brokers: my-kafka.kafka.svc.cluster.local:9092
+          brokers: localhost:9092
         streams:
           binder:
             configuration:
@@ -32,11 +43,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        input:
-          group: lecture
+        event-in:
+          group: Lecture
           destination: myTopic
           contentType: application/json
-        output:
+        event-out:
           destination: myTopic
           contentType: application/json
 
@@ -45,10 +56,8 @@ logging:
     org.hibernate.type: trace
     org.springframework.cloud: debug
 
-
-server:
-  port: ${SERVER_PORT}
 ---
+
 
 spring:
   profiles: aws
@@ -66,11 +75,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        input:
-          group: lecture
+        event-in:
+          group: Lecture
           destination: myTopic
           contentType: application/json
-        output:
+        event-out:
           destination: myTopic
           contentType: application/json
 
