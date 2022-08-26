@@ -1,5 +1,5 @@
 server:
-  port: ${server_port}
+  port: 8080
 spring:
   profiles: local
   jpa:

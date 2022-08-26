@@ -21,7 +21,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: my-kafka.kafka.svc.cluster.local
+          brokers: my-kafka.kafka.svc.cluster.local:9092
         streams:
           binder:
             configuration:
@@ -31,11 +31,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        inputChannel:
+        input:
           destination: myTopic
           contentType: application/json
           group: Lecture
-        outputChannel:
+        output:
           destination: myTopic
           contentType: application/json
 logging:
