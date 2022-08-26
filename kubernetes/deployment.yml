@@ -19,6 +19,7 @@ spec:
           image: 357806352922.dkr.ecr.ap-northeast-2.amazonaws.com/moine_lecture:latest
           ports:
             - containerPort: 8080
+          imagePullPolicy: Always
           readinessProbe:
             httpGet:
               path: '/actuator/health'

@@ -25,11 +25,11 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: order
-          destination: team
+          group: lecture
+          destination: myTopic
           contentType: application/json
         event-out:
-          destination: team
+          destination: myTopic
           contentType: application/json
 
 logging:
@@ -59,11 +59,11 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: order
-          destination: team
+          group: lecture
+          destination: myTopic
           contentType: application/json
         event-out:
-          destination: team
+          destination: myTopic
           contentType: application/json
 
 
