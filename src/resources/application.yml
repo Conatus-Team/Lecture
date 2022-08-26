@@ -60,7 +60,7 @@ logging:
 
 
 spring:
-  profiles: aws
+  profiles: docker
   cloud:
     stream:
       kafka:

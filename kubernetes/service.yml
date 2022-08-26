@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: moine-lecture-backend-svc
+  name: lecture-svc
+  namespace: lecture
   labels:
-    app: moine-lecture-backend-svc
+    app: lecture
 spec:
-  type: LoadBalancer
   ports:
-    - port: 8080
-      name: lecture-backend
-      protocol: TCP
+    - port: 80
       targetPort: 8080
   selector:
-    app: lecture-backend
+    app: lecture
+  type: LoadBalancer
+
