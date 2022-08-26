@@ -22,44 +22,6 @@ server:
 ---
 
 spring:
-  profiles: default
-  jpa:
-    hibernate:
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-  cloud:
-    stream:
-      kafka:
-        binder:
-          brokers: localhost:9092
-        streams:
-          binder:
-            configuration:
-              default:
-                key:
-                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                value:
-                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-      bindings:
-        event-in:
-          group: Lecture
-          destination: myTopic
-          contentType: application/json
-        event-out:
-          destination: myTopic
-          contentType: application/json
-
-logging:
-  level:
-    org.hibernate.type: trace
-    org.springframework.cloud: debug
-
----
-
-
-spring:
   profiles: docker
   cloud:
     stream:

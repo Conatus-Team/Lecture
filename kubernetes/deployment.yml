@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: lecture
-          image: 357806352922.dkr.ecr.ap-northeast-2.amazonaws.com/lecture:latest
+          image: 357806352922.dkr.ecr.ap-northeast-2.amazonaws.com/moine_lecture:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
