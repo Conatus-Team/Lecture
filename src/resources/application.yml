@@ -34,13 +34,14 @@ spring:
 #                value:
 #                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        inboundTopic:
+        inputChannel:
           destination: myTopic
           contentType: application/json
           group: Lecture
-        outboundTopic:
+        outputChannel:
           destination: myTopic
           contentType: application/json
+
 
 logging:
   level:
@@ -56,6 +57,7 @@ spring:
       kafka:
         binder:
           brokers: my-kafka.kafka.svc.cluster.local
+          defaultBrokerPort: 9092
 #        streams:
 #          binder:
 #            configuration:
@@ -65,11 +67,11 @@ spring:
 #                value:
 #                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        inboundTopic:
+        inputChannel:
           destination: myTopic
           contentType: application/json
           group: Lecture
-        outboundTopic:
+        outputChannel:
           destination: myTopic
           contentType: application/json
 

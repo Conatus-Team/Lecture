@@ -9,9 +9,9 @@ public interface KafkaProcessor {
     String INPUT = "input";
     String OUTPUT = "output";
 
-    @Input(INPUT)
-    SubscribableChannel inboundTopic();
+    @Input(KafkaProcessor.INPUT)
+    SubscribableChannel inputChannel();
 
-    @Output(OUTPUT)
-    MessageChannel outboundTopic();
+    @Output(KafkaProcessor.OUTPUT)
+    MessageChannel outputChannel();
 }
