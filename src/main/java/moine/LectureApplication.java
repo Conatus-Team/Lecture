@@ -7,10 +7,10 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@EnableJpaAuditing
+//@EnableJpaAuditing
 @SpringBootApplication
 @EnableBinding(KafkaProcessor.class)
-@EnableFeignClients
+//@EnableFeignClients
 public class LectureApplication {
     public static ApplicationContext applicationContext;
     public static void main(String[] args) {
