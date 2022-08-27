@@ -58,21 +58,14 @@ spring:
       kafka:
         binder:
           brokers: my-kafka.kafka.svc.cluster.local:9092
-        streams:
-          binder:
-            configuration:
-              default:
-                key:
-                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                value:
-                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          zkNodes: my-kafka-zookeeper.kafka.svc.cluster.local:2181
+      function:
+          definition: postUser;updateLectureRecommended;
       bindings:
         postUser-in-0:
           group: lecture
           destination: myTopic
           contentType: application/json
         updateLectureRecommended-in-0:
-          destination: myTopic
-          contentType: application/json
-
-
+         destination: myTopic
+         contentType: application/json
