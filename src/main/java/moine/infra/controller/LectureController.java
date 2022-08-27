@@ -1,6 +1,7 @@
 package moine.infra.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import moine.domain.dto.*;
 import moine.domain.entity.*;
 import moine.domain.event.LectureDetailShown;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value="/lecture")
+@Slf4j
 public class LectureController {
 
 
@@ -186,7 +188,10 @@ public class LectureController {
         String returnStr = "";
 
         List<LectureRecommend> result = lectureRecommendRepository.findAll();
-        result.stream().forEach(item -> returnStr.concat(item.toString()));
+        result.stream().forEach(item -> {
+                    log.debug(item.toString());
+                    returnStr.concat(item.toString());
+                });
 
         return returnStr;
     }
