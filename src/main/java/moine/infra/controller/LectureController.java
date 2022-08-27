@@ -2,13 +2,11 @@ package moine.infra.controller;
 
 import lombok.RequiredArgsConstructor;
 import moine.domain.dto.*;
-import moine.domain.entity.LectureCrawling;
-import moine.domain.entity.LectureDetailShow;
-import moine.domain.entity.LectureLike;
-import moine.domain.entity.LectureSearch;
+import moine.domain.entity.*;
 import moine.domain.event.LectureDetailShown;
 import moine.domain.event.LectureLiked;
 import moine.domain.event.LectureSearched;
+import moine.domain.repository.LectureRecommendRepository;
 import moine.domain.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value="/lecture")
 public class LectureController {
+
+
+    private final LectureRecommendRepository lectureRecommendRepository;
 
     private final CrawlingService crawlingService;
     private final SearchService searchService;
@@ -181,6 +182,12 @@ public class LectureController {
 
     @GetMapping("/ping")
     public String getPing() {
-        return msg;
+
+        String returnStr = "";
+
+        List<LectureRecommend> result = lectureRecommendRepository.findAll();
+        result.stream().forEach(item -> returnStr.concat(item.toString()));
+
+        return returnStr;
     }
 }

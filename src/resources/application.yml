@@ -60,7 +60,7 @@ spring:
           brokers: my-kafka.kafka.svc.cluster.local:9092
           zkNodes: my-kafka-zookeeper.kafka.svc.cluster.local:2181
       function:
-          definition: postUser;updateLectureRecommended;
+        definition: postUser;updateLectureRecommended;
       bindings:
         postUser-in-0:
           group: lecture
