@@ -53,24 +53,24 @@ public class PolicyHandler{
 
 
     // RecommendSystem으로 부터 추천 강의 구독
-//    @StreamListener(KafkaProcessor.INPUT)
-//    public void updateLectureRecommended(@Payload LectureRecommended lectureRecommended){
-//         if(!lectureRecommended.validate()) return;
-//        System.out.println("================================================");
-//        System.out.println("=============//letureRecommended================");
-//        System.out.println(lectureRecommended);
-//        System.out.println("================================================");
-//        System.out.println("================================================");
-//        LectureRecommend newRecommendLecture = recommendService.postRecommend(
-//                lectureRecommended.getLectureId(),
-//                lectureRecommended.getUserId()
-//        );
-//
-//        System.out.println("추천 강의 저장 성공!");
-//        System.out.println(newRecommendLecture);
-//        System.out.println("================================================");
-//        System.out.println("===============letureRecommended//===============");
-//    }
+    @StreamListener(KafkaProcessor.INPUT)
+    public void updateLectureRecommended(@Payload LectureRecommended lectureRecommended){
+         if(!lectureRecommended.validate()) return;
+        System.out.println("================================================");
+        System.out.println("=============//letureRecommended================");
+        System.out.println(lectureRecommended);
+        System.out.println("================================================");
+        System.out.println("================================================");
+        LectureRecommend newRecommendLecture = recommendService.postRecommend(
+                lectureRecommended.getLectureId(),
+                lectureRecommended.getUserId()
+        );
+
+        System.out.println("추천 강의 저장 성공!");
+        System.out.println(newRecommendLecture);
+        System.out.println("================================================");
+        System.out.println("===============letureRecommended//===============");
+    }
 
 
 }

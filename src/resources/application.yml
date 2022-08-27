@@ -21,6 +21,11 @@ spring:
 
 spring:
   profiles: default
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
   cloud:
     stream:
       kafka:
@@ -37,7 +42,7 @@ spring:
       bindings:
         event-in:
           group: lecture
-          destination:
+          destination: myTopic
           contentType: application/json
         event-out:
           destination: myTopic
@@ -71,8 +76,9 @@ spring:
       bindings:
         event-in:
           group: lecture
-          destination:
+          destination: myTopic
           contentType: application/json
         event-out:
           destination: myTopic
           contentType: application/json
+

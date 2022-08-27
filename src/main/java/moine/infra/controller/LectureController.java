@@ -185,7 +185,7 @@ public class LectureController {
     @GetMapping("/ping")
     public String getPing() {
 
-        String returnStr = "";
+        String returnStr = "".concat(msg);
 
         List<LectureRecommend> result = lectureRecommendRepository.findAll();
         result.stream().forEach(item -> {
