@@ -10,8 +10,8 @@ import moine.domain.event.LectureDetailShown;
 import moine.domain.event.LectureLiked;
 import moine.domain.event.LectureSearched;
 import moine.domain.service.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -226,4 +226,8 @@ public class LectureController {
 
 
 
+    @GetMapping("/ping")
+    public String getPing() {
+        return "success";
+    }
 }
