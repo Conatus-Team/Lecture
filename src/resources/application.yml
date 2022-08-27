@@ -1,10 +1,7 @@
 server:
   port: ${server_port}
 
----
-
 spring:
-  profiles: default
   jpa:
     hibernate:
       naming:
@@ -19,6 +16,11 @@ spring:
     username: ${database_userid}
     password: ${database_password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+---
+
+spring:
+  profiles: default
   cloud:
     stream:
       kafka:
@@ -33,11 +35,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        input:
+        inboundTopic-in-0:
           group: lecture
           destination: myTopic
           contentType: application/json
-        output:
+        inboundTopic-in-1:
           group: lecture
           destination: myTopic
           contentType: application/json
@@ -68,11 +70,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        input:
+        inboundTopic-in-0:
           group: lecture
           destination: myTopic
           contentType: application/json
-        output:
+        inboundTopic-in-1:
           group: lecture
           destination: myTopic
           contentType: application/json
