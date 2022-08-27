@@ -63,23 +63,21 @@ spring:
   cloud:
     stream:
       kafka:
-        streams:
-          binder:
-            brokers: my-kafka.kafka.svc.cluster.local:9092
-            zkNodes: my-kafka-zookeeper.kafka.svc.cluster.local:2181
-            serdeError: logAndContinue
-            configuration:
-              default:
-                key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        binder:
+          brokers: my-kafka.kafka.svc.cluster.local:9092
+          zkNodes: my-kafka-zookeeper.kafka.svc.cluster.local:2181
+          configuration:
+            default:
+              key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+              value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        event-in:
+        input:
           group: lecture
           destination: myTopic
-          contentType: application/json
-        event-out:
+          content-type: application/json
+        output:
           destination: myTopic
-          contentType: application/json
+          content-type: application/json
 
 logging:
   level:
