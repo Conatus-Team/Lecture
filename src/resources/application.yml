@@ -67,12 +67,12 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        event-in:
+        postUser-in-0:
           group: lecture
-          destination: moine
+          destination: myTopic
           contentType: application/json
-        event-out:
-          destination: moine
+        updateLectureRecommended-in-0:
+          destination: myTopic
           contentType: application/json
 
 
