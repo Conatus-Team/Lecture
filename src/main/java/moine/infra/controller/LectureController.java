@@ -26,6 +26,11 @@ public class LectureController {
     private final LikeService likeService;
     private final DetailShowService detailShowService;
 
+    @Value("${ping.msg}")
+    private String msg;
+
+
+
     // 관리자
     // 크롤링 실행 및 DB 저장
     @GetMapping("/crawlingSave")
@@ -176,6 +181,6 @@ public class LectureController {
 
     @GetMapping("/ping")
     public String getPing() {
-        return "success";
+        return msg;
     }
 }
