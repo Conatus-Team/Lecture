@@ -63,8 +63,9 @@ spring:
   cloud:
     stream:
       kafka:
-        binder:
-          brokers: my-kafka.kafka.svc.cluster.local:9092
+        bootstrapServers: my-kafka.kafka.svc.cluster.local:9092
+#        binder:
+#          brokers: my-kafka.kafka.svc.cluster.local:9092
         streams:
           binder:
             configuration:
