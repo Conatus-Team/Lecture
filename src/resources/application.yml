@@ -40,12 +40,12 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        event-in:
+        input:
           group: lecture
-          destination: myTopic
+          destination: localTopic
           contentType: application/json
-        event-out:
-          destination: myTopic
+        output:
+          destination: localTopic
           contentType: application/json
 
 logging:
