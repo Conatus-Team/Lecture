@@ -17,6 +17,8 @@ spring:
     username: ${database_userid}
     password: ${database_password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  kafka:
+    bootstrap-servers: my-kafka.kafka.svc.cluster.local:9092
   cloud:
     stream:
       kafka:
@@ -31,11 +33,11 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        input:
+        inputChannel:
           destination: myTopic
           contentType: application/json
           group: Lecture
-        output:
+        outputChannel:
           destination: myTopic
           contentType: application/json
 logging:
