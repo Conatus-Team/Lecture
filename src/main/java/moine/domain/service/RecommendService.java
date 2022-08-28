@@ -9,6 +9,8 @@ import moine.domain.repository.LectureRecommendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RecommendService {
@@ -29,6 +31,11 @@ public class RecommendService {
 
         return lectureRecommendRepository.save(recommend);
 
+    }
+
+    // 모든 추천 강의 가져오기
+    public List<LectureRecommend> getAllRecommendList() {
+        return lectureRecommendRepository.findAll();
     }
 
 }

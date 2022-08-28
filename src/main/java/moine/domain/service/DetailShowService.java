@@ -18,6 +18,8 @@ public class DetailShowService {
     private final CrawlingService crawlingService;
     private final UserService userService;
 
+
+
     // lecture_detail_show 디비에 어떤 userid가 어떤 강의를 클릭했는지 저장
     public LectureDetailShow saveLectureDetailShow(Long lectureId, Long userId){
 

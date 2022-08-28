@@ -17,6 +17,7 @@ public class LectureAllDto {
     private List<LectureCrawling> data;
 
     // 찜하기 여부
-    private List<Long> likeId;
+    private List<Long> likeId = null;
+
 
 }

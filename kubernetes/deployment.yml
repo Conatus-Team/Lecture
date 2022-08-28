@@ -1,24 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Lecture
+  name: lecture
   labels:
-    app: Lecture
+    app: lecture
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: Lecture
+      app: lecture
   template:
     metadata:
       labels:
-        app: Lecture
+        app: lecture
     spec:
       containers:
-        - name: Lecture
-          image: username/Lecture:latest
+        - name: lecture
+          image: 357806352922.dkr.ecr.ap-northeast-2.amazonaws.com/moine_lecture:latest
           ports:
             - containerPort: 8080
+          imagePullPolicy: Always
           readinessProbe:
             httpGet:
               path: '/actuator/health'
@@ -35,3 +36,43 @@ spec:
             timeoutSeconds: 2
             periodSeconds: 5
             failureThreshold: 5
+          envFrom:
+            - configMapRef:
+                name: moine-backend-configmap
+
+#          env:
+#            - name: DATABASE_URL
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: moine-backend-configmap
+#                  key: lecture_database_url
+#            - name: DATABASE_USERID
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: moine-backend-configmap
+#                  key: database_userid
+#            - name: DATABASE_PASSWORD
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: moine-backend-configmap
+#                  key: database_password
+#            - name: KAFKA_BROKERS
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: moine-backend-configmap
+#                  key: kafka_brokers
+#            - name: KAFKA_BOOTSTRAP_SERVERS
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: moine-backend-configmap
+#                  key: kafka_bootstrap_servers
+#            - name: SERVER_PORT
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: moine-backend-configmap
+#                  key: server_port
+#            - name: PING_MSG
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: moine-backend-configmap
+#                  key: ping_msg
