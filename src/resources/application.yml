@@ -69,18 +69,15 @@ spring:
           binder:
             configuration:
               default:
-                key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        input:
+        event-in:
           group: lecture
           destination: myTopic
-          content-type: application/json
-        output:
+          contentType: application/json
+        event-out:
           destination: myTopic
-          content-type: application/json
-
-logging:
-  level:
-    org.hibernate.type: trace
-    org.springframework.cloud: debug
+          contentType: application/json
