@@ -25,7 +25,7 @@ public class DetailShowService {
         List<LectureDetailShow> lectureDetailShow =
                 lectureDetailShowRepository.findByLectureCrawlingAndUser(
                         crawlingService.getLectureById(lectureId),
-                        userService.getUser(userId)
+                        userService.getUserById(userId)
                 );
 
 
@@ -36,7 +36,7 @@ public class DetailShowService {
             LectureCrawling lecture = crawlingService.getLectureById(lectureId);
             newLectureDetailShow.setLectureCrawling(lecture);
             newLectureDetailShow.setCategoryName(lecture.getCategoryName());
-            newLectureDetailShow.setUser(userService.getUser(userId));
+            newLectureDetailShow.setUser(userService.getUserById(userId));
             newLectureDetailShow.setClickCount(1);
 
             lectureDetailShowRepository.save(newLectureDetailShow);
@@ -55,7 +55,11 @@ public class DetailShowService {
         return lectureDetailShow.get(0);
     }
 
-
+    // 모두 가져오기
+    public List<LectureDetailShow> getAllLectureDetailShow(){
+        List<LectureDetailShow> lectureDetailShowList = lectureDetailShowRepository.findAll();
+        return lectureDetailShowList;
+    }
 
 
 

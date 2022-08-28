@@ -8,8 +8,8 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity(name="recommend")
-public class Recommend {
+@Entity(name="lecture_recommend")
+public class LectureRecommend extends BaseTimeEntity {
 
     // RecommendSystem으로 부터 전달받은 추천 강의 저장
     @Id
@@ -20,9 +20,9 @@ public class Recommend {
     @Column(name="is_deleted", nullable = false)
     private boolean isDeleted = Boolean.FALSE; // 디폴트 false
 
-    // 해당 강의의 취미분야
-    @Column(name="category_name")
-    private String categoryName;
+//    // 해당 강의의 취미분야
+//    @Column(name="category_name")
+//    private String categoryName;
 
     @ManyToOne
     @JoinColumn(name="lecture_id")

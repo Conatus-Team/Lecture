@@ -15,4 +15,5 @@ public interface LectureCrawlingRepository extends JpaRepository<LectureCrawling
     List<LectureCrawling> findByCurriculumContaining(String curriculum);
     List<LectureCrawling> findByIntroductionContaining(String introduction);
 
+
 }
