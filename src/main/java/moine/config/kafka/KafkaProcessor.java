@@ -10,8 +10,8 @@ public interface KafkaProcessor {
     String OUTPUT = "event-out";
 
     @Input(INPUT)
-    SubscribableChannel input();
+    SubscribableChannel inboundTopic();
 
     @Output(OUTPUT)
-    MessageChannel output();
+    MessageChannel outboundTopic();
 }

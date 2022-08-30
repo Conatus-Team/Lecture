@@ -19,6 +19,31 @@ spring:
 
 ---
 
+
+
+
+spring:
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: ${lecture_database_url}
+    username: ${database_userid}
+    password: ${database_password}
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+server:
+  port: ${server_port}
+
+---
+
 spring:
   profiles: default
   jpa:
@@ -30,44 +55,9 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: localhost:29092
         streams:
           binder:
-            configuration:
-              default:
-                key:
-                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-                value:
-                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-      bindings:
-        input:
-          group: lecture
-          destination: localTopic
-          contentType: application/json
-        output:
-          destination: localTopic
-          contentType: application/json
-
-logging:
-  level:
-    org.hibernate.type: trace
-    org.springframework.cloud: debug
-
-
-server:
-  port: 8081
----
-
-spring:
-  profiles: docker
-  cloud:
-    stream:
-      kafka:
-        binder:
-          brokers: my-kafka.kafka.svc.cluster.local:9092
-        streams:
-          binder:
-            brokers: my-kafka.kafka.svc.cluster.local:9092
             configuration:
               default:
                 key:
@@ -82,3 +72,38 @@ spring:
         event-out:
           destination: myTopic
           contentType: application/json
+
+logging:
+  level:
+    org.hibernate.type: trace
+    org.springframework.cloud: debug
+server:
+  port: 8081
+---
+
+
+spring:
+  profiles: docker
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: my-kafka.kafka.svc.cluster.local:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: lecture
+          destination: myTopic
+          contentType: application/json
+        event-out:
+          destination: myTopic
+          contentType: application/json
+
+
