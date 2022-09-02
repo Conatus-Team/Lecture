@@ -2,9 +2,7 @@ server:
   port: ${server_port}
 
 spring:
-  config:
-    activate:
-      on-profile: docker
+  profiles: docker
   jpa:
     hibernate:
       naming:

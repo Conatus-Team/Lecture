@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    default: local
+    active: ec2
 
   jpa:
     hibernate:
