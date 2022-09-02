@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: ec2
+    active: docker
 
   jpa:
     hibernate:
