@@ -2,7 +2,9 @@ server:
   port: 8080
 
 spring:
-  profiles: local
+  profiles:
+    default: local
+
   jpa:
     hibernate:
       naming:
@@ -41,17 +43,3 @@ logging:
 
 ping:
   msg: success_local
-
-
----
-
-spring:
-  profiles:
-    active: ec2
-
-
----
-
-spring:
-  profiles:
-    active: docker
