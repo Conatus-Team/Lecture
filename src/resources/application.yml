@@ -40,4 +40,18 @@ logging:
     org.springframework.cloud: debug
 
 ping:
-  msg: success_ec2
+  msg: success_local
+
+
+---
+
+spring:
+  profiles:
+    active: ec2
+
+
+---
+
+spring:
+  profiles:
+    active: docker
