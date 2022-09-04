@@ -1,4 +1,4 @@
-package com.mysite.sbb;
+package moine.infra.config;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +30,7 @@ public class SwaggerConfig {
                 .produces(getProduceContentTypes())
                 .apiInfo(swaggerInfo()).select()
                 // swagger를 적용할 패키지 지정. 해당 패키지 이하의 모든 rest api가 자동으로 swagger 문서로 생성됨
-                .apis(RequestHandlerSelectors.basePackage("com.mysite.sbb"))
+//                .apis(RequestHandlerSelectors.basePackage("com.mysite.sbb"))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);
