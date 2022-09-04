@@ -24,6 +24,9 @@ import java.util.List;
 @Transactional
 public class LectureController {
 
+
+
+
     private final CrawlingService crawlingService;
     private final SearchService searchService;
     private final UserService userService;
@@ -166,7 +169,7 @@ public class LectureController {
 
 
     // 특정 강의 보기
-    @PostMapping("/{lectureId}")
+    @GetMapping("/{lectureId}")
     public LectureCrawling getLectureItem(@PathVariable Long lectureId, @RequestHeader(value="Authorization") Long userId){
         // 검증
         if(!userService.existsUser(userId) || !crawlingService.existsLectureId(lectureId)){
