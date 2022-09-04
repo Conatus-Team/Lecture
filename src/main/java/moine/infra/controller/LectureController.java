@@ -9,6 +9,8 @@ import moine.domain.entity.LectureSearch;
 import moine.domain.event.LectureDetailShown;
 import moine.domain.event.LectureLiked;
 import moine.domain.event.LectureSearched;
+import moine.domain.middle.PostMiddleService;
+import moine.domain.middle.Url;
 import moine.domain.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,7 @@ public class LectureController {
     private final LikeService likeService;
     private final DetailShowService detailShowService;
     private final RecommendService recommendService;
+    private final PostMiddleService postMiddleService;
 
     /*
      ********************
@@ -53,16 +56,21 @@ public class LectureController {
         List<LectureDetailShow> detailShowList = detailShowService.getAllLectureDetailShow();
         LectureDetailShown detailShownMessage = new LectureDetailShown(detailShowList);
         detailShownMessage.publish();
+        postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/LectureDetailShown", detailShownMessage);
 
         // 찜하기
         List<LectureLike> likeList = likeService.getAllLikeList();
         LectureLiked likedMessage = new LectureLiked(likeList);
         likedMessage.publish();
+        //postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/LectureLiked", likedMessage);
+
 
         // 키워드
         List<LectureSearch> searchList = searchService.getAllLectureSearch();
         LectureSearched searchedMessage = new LectureSearched(searchList);
         searchedMessage.publish();
+        //postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/LectureSearched", searchedMessage);
+
 
         return "전송 완료";
     }
@@ -73,6 +81,9 @@ public class LectureController {
         return userService.deleteUser();
     }
 
+
+    // Middle로 이벤트 받기
+    @PostMapping("/connect_middle")
 
     /*
      ********************
