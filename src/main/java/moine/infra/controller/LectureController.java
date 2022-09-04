@@ -13,6 +13,7 @@ import moine.domain.middle.PostMiddleService;
 import moine.domain.middle.Url;
 import moine.domain.service.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value="/lecture")
+@Transactional
 public class LectureController {
 
     private final CrawlingService crawlingService;
@@ -62,14 +64,14 @@ public class LectureController {
         List<LectureLike> likeList = likeService.getAllLikeList();
         LectureLiked likedMessage = new LectureLiked(likeList);
         likedMessage.publish();
-        //postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/LectureLiked", likedMessage);
+        postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/LectureLiked", likedMessage);
 
 
         // 키워드
         List<LectureSearch> searchList = searchService.getAllLectureSearch();
         LectureSearched searchedMessage = new LectureSearched(searchList);
         searchedMessage.publish();
-        //postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/LectureSearched", searchedMessage);
+        postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/LectureSearched", searchedMessage);
 
 
         return "전송 완료";
@@ -82,8 +84,7 @@ public class LectureController {
     }
 
 
-    // Middle로 이벤트 받기
-    @PostMapping("/connect_middle")
+
 
     /*
      ********************
@@ -105,6 +106,12 @@ public class LectureController {
     // 강의 첫 화면
     @GetMapping("")
     public LikeAndRecommendDto getLecture(@RequestHeader(value="Authorization") Long userId) {
+        System.out.println("===================================");
+        System.out.println("===================================");
+        System.out.println(userId);
+        System.out.println("===================================");
+        System.out.println("===================================");
+
         // 검증
         if(!userService.existsUser(userId)){
             return null;
@@ -124,7 +131,7 @@ public class LectureController {
         // 로그인 후 : 추천 강의, 찜한 강의만 존재 (전체 강의 보여주지 않음)
         LikeAndRecommendDto result = new LikeAndRecommendDto();
         result.setLikeList(likeService.getLikeListByUserId(userId));
-        result.setRecommendList(recommendService.getAllRecommendList());
+        result.setRecommendList(recommendService.getRecommendListByUserId(userId));
 
         return result;
 
@@ -160,7 +167,7 @@ public class LectureController {
 
     // 특정 강의 보기
     @PostMapping("/{lectureId}")
-    public LectureCrawling getLectureItem(@PathVariable Long lectureId, @RequestHeader Long userId){
+    public LectureCrawling getLectureItem(@PathVariable Long lectureId, @RequestHeader(value="Authorization") Long userId){
         // 검증
         if(!userService.existsUser(userId) || !crawlingService.existsLectureId(lectureId)){
             return null;

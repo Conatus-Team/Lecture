@@ -38,4 +38,9 @@ public class RecommendService {
         return lectureRecommendRepository.findAll();
     }
 
+    // 사용자별 추천 강의 가져오기
+    public List<LectureRecommend> getRecommendListByUserId(Long userId) {
+        return lectureRecommendRepository.findByUser(userService.getUserById(userId));
+    }
+
 }
