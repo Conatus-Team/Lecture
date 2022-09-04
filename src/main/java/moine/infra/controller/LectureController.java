@@ -186,7 +186,7 @@ public class LectureController {
 
     // 강의 검색하기
     @PostMapping("/search")
-    public List<LectureCrawling> postLectureSearchResult(@RequestParam("keyword") String keyword, @RequestHeader(value="Authorization") Long userId) {
+    public LectureAllDto postLectureSearchResult(@RequestParam("keyword") String keyword, @RequestHeader(value="Authorization") Long userId) {
         // 검증
         if(!userService.existsUser(userId)){
             return null;
@@ -194,14 +194,26 @@ public class LectureController {
 
         if(userId == 0) {
             // 키워드를 포함하는 강의를 DB에서 가져오기
-            List<LectureCrawling> results = searchService.search(keyword);
-            return results;
+            List<LectureCrawling> list = searchService.search(keyword);
+            LectureAllDto result = new LectureAllDto();
+            result.setData(list);
+
+            return result;
         }
 
-        List<LectureCrawling> results = searchService.search(keyword);
+//        List<LectureCrawling> results = searchService.search(keyword);
         // lecture_search 디비에 어떤 userid가 어떤 키워드를 검색했는지 저장
         searchService.saveSearch(keyword, userId);
-        return results;
+
+        // 찜한 강의 여부 추가
+        List<LectureCrawling> searchList = searchService.search(keyword);
+        List<Long> id_list = likeService.likeList(userId);
+        LectureAllDto result = new LectureAllDto();
+        result.setData(searchList);
+        result.setLikeId(id_list);
+
+
+        return result;
     }
 
     // 찜하기 목록 보기
