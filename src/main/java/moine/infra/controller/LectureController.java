@@ -24,7 +24,7 @@ import java.util.List;
 public class LectureController {
 
 
-    private final LectureRecommendRepository lectureRecommendRepository;
+
 
     private final CrawlingService crawlingService;
     private final SearchService searchService;
@@ -168,7 +168,7 @@ public class LectureController {
 
 
     // 특정 강의 보기
-    @PostMapping("/{lectureId}")
+    @GetMapping("/{lectureId}")
     public LectureCrawling getLectureItem(@PathVariable Long lectureId, @RequestHeader(value="Authorization") Long userId){
         // 검증
         if(!userService.existsUser(userId) || !crawlingService.existsLectureId(lectureId)){
@@ -260,15 +260,6 @@ public class LectureController {
 
     @GetMapping("/ping")
     public String getPing() {
-
-        String returnStr = "".concat(msg);
-
-        List<LectureRecommend> result = lectureRecommendRepository.findAll();
-        result.stream().forEach(item -> {
-                    log.debug(item.toString());
-                    returnStr.concat(item.toString());
-                });
-
-        return returnStr;
+        return "success";
     }
 }
