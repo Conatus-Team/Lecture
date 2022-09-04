@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,8 @@ public class SearchService {
         results.addAll(lectureCrawlingRepository.findByCategoryNameContaining(keyword));
         results.addAll(lectureCrawlingRepository.findByCurriculumContaining(keyword));
         results.addAll(lectureCrawlingRepository.findByIntroductionContaining(keyword));
+
+        results = List.copyOf(Set.copyOf(results)); // 중복 제거
 
         return results;
     }
