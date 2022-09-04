@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CrawlingService {
-    @Autowired
-    private LectureCrawlingRepository lectureCrawlingRepository;
+
+    private final LectureCrawlingRepository lectureCrawlingRepository;
 
     private final JsoupComponent jsoupComponent;
 
@@ -37,6 +37,12 @@ public class CrawlingService {
         lectureCrawlingRepository.deleteAll();
 
     }
+
+    // 강의 존재 여부
+    public boolean existsLectureId(long lectureId) {
+        return lectureCrawlingRepository.existsById(lectureId);
+    }
+
 
     // DB 저장
     public List<LectureCrawlingVO> saveLectureCrawlingList(){
@@ -67,6 +73,10 @@ public class CrawlingService {
 
     // lecutre_id에 해당하는 lecture 반환
     public LectureCrawling getLectureById(Long lectureId){
+        System.out.println("----------------------");
+//        System.out.println(lectureCrawlingRepository.findById((long)3));
+        System.out.println(lectureCrawlingRepository.findByLectureId((long)3));
+        System.out.println("----------------------");
         LectureCrawling lecture = lectureCrawlingRepository.findById(lectureId).get();
         return lecture;
     }

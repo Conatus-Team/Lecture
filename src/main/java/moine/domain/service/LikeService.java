@@ -98,4 +98,8 @@ public class LikeService {
         return lectureLikeRepository.findAll();
     }
 
+    public List<LectureLike> getLikeListByUserId(long userId){
+        return lectureLikeRepository.findByUser(userService.getUserById(userId));
+    }
+
 }

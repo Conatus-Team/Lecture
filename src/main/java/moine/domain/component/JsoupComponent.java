@@ -93,6 +93,7 @@ public class JsoupComponent {
             try {
                 Document document2 = conn2.get();
                 Elements elements = document2.select("div.mt20").next();
+                String img = document2.select("img.active").select("img").attr("src");
 
                 // elements = [0:무의미한 값, 1: 강의소개, 2: 강의목차, 3: 강의추천, 4:강의평가]
                 // 강의소개
@@ -101,9 +102,11 @@ public class JsoupComponent {
 
 
                 // 이미지 경로
-                if (!elements.get(1).select("img[src]").isEmpty()) {
-//                    System.out.println("https://www.dongacc.com/" + elements.get(1).select("img").attr("src"));
-                    image_path = "https://www.dongacc.com/" + elements.get(1).select("img").attr("src");
+//                if (!elements.get(1).select("img[src]").isEmpty()) {
+//                    image_path = "https://www.dongacc.com" + elements.get(1).select("img").attr("src");
+//                }
+                if (img != "") {
+                    image_path = "https://www.dongacc.com" + img;
                 }
 
 

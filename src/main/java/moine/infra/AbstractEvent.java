@@ -3,7 +3,7 @@ package moine.infra;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import moine.LectureApplication;
-import moine.config.kafka.KafkaProcessor;
+//import moine.config.kafka.KafkaProcessor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
@@ -43,16 +43,16 @@ public class AbstractEvent {
     }
 
     public void publish(String json) {
-        if (json != null) {
-            /**
-             * spring streams 방식
-             */
-            KafkaProcessor processor = LectureApplication.applicationContext.getBean(KafkaProcessor.class);
-            MessageChannel outputChannel = processor.outboundTopic();
-
-            outputChannel.send(MessageBuilder.withPayload(json)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON).build());
-        }
+//        if (json != null) {
+//            /**
+//             * spring streams 방식
+//             */
+//            KafkaProcessor processor = LectureApplication.applicationContext.getBean(KafkaProcessor.class);
+//            MessageChannel outputChannel = processor.outboundTopic();
+//
+//            outputChannel.send(MessageBuilder.withPayload(json)
+//                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON).build());
+//        }
     }
 
     public void publish() {

@@ -11,5 +11,4 @@ import java.util.List;
 @Repository
 public interface LectureDetailShowRepository extends JpaRepository<LectureDetailShow, Long> {
     List<LectureDetailShow> findByLectureCrawlingAndUser(LectureCrawling lectureCrawling, User user);
-
 }
