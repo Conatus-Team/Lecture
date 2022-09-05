@@ -1,0 +1,36 @@
+server:
+  port: 8081
+
+---
+
+spring:
+  profiles: default
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database: mysql
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+    org.springframework.cloud: debug
+
+
+server:
+  port: ${server_port}
+---
+
+spring:
+  profiles: docker
+  datasource:
+    url: ${lecture_database_url}
+    username: ${database_userid}
+    password: ${database_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+gateway:
+  url: ${gateway_url}

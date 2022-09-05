@@ -10,4 +10,5 @@ data:
   kafka_bootstrap_servers: "123"
   kafka_brokers: "123"
   server_port: 8080
-  ping_msg: "hello"
+  ping_msg: "ping_k8s"
+  gateway_url: ""

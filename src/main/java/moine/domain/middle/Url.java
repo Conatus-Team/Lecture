@@ -1,6 +1,7 @@
 package moine.domain.middle;
 
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 
 @Getter
 public enum Url {
@@ -15,7 +16,7 @@ public enum Url {
     RECOMMEND(BASE.getUrl() + "80856" + "/recommend/connect_middle"),
     MIDDLE(BASE.getUrl() + "8082" + "/middle");
 
-
+    @Value("${gateway.url}")
     private final String url;
 
     private Url(String url) {
