@@ -41,6 +41,9 @@ public class LikeService {
             // lecture_crawling의 user_like_count 증가
             crawlingService.increaseUserLikeCount(lecture);
 
+            // 추천목록의 강의를 찜한 경우
+            // 찜목록에 강의 추가, 추천 목록에 강의 삭제
+
 
             return newLectureLike;
         }
