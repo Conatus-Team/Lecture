@@ -256,7 +256,13 @@ public class LectureController {
         return lecture;
     }
 
-
+    @PostMapping("/recommend")
+    public RecommendedItemListDto getByUserId(@RequestBody RecommendedItemListDto dto ){
+        System.out.println(dto);
+        System.out.println(dto.toString());
+        recommendService.saveRecommendedLectureList(dto);
+        return dto;
+    }
 
     @GetMapping("/ping")
     public String getPing() {
